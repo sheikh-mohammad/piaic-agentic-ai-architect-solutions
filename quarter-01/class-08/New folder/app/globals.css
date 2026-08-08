@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #0a0a12;
+    --color-on-primary: #ffffff;
+    --color-accent: #f5b841;
+    --color-background: #0a0a12;
+    --color-foreground: #f7f7fb;
+    --color-ring: #f5b841;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-ink font-body text-white antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: linear-gradient(90deg, #f5b841, #8b5cf6);
+    color: #0a0a12;
+  }
+
+  :focus-visible {
+    outline: 2px solid #f5b841;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a12;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #f5b841, #8b5cf6);
+    border-radius: 999px;
+    border: 2px solid #0a0a12;
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-6 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-body text-[11px] font-semibold uppercase tracking-widest2 text-gold-light;
+  }
+
+  /* ---- Iridescent gradient text ---- */
+  .text-grad-gold {
+    background-image: linear-gradient(100deg, #ffd98a 0%, #f5b841 38%, #fb7185 72%, #ffd98a 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+  .text-grad-iris {
+    background-image: linear-gradient(100deg, #f5b841 0%, #a78bfa 40%, #2dd4bf 75%, #f5b841 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 7s linear infinite;
+  }
+
+  @keyframes shimmer {
+    from { background-position: 0% 50%; }
+    to { background-position: 200% 50%; }
+  }
+
+  /* ---- Glass surfaces ---- */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .glass-strong {
+    background: rgba(20, 20, 31, 0.72);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Gradient hairline border (top edge used as section separators) */
+  .gradient-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 184, 65, 0.7), rgba(139, 92, 246, 0.7), transparent);
+  }
+
+  /* ---- Buttons ---- */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-7 py-3.5 font-body text-sm font-semibold tracking-wide transition-all duration-300;
+  }
+  .btn-grad {
+    background-image: linear-gradient(100deg, #f5b841, #a78bfa 60%, #2dd4bf);
+    background-size: 160% auto;
+    color: #0a0a12;
+    transition: background-position 400ms ease, transform 200ms ease, box-shadow 300ms ease;
+    box-shadow: 0 0 34px -10px rgba(245, 184, 65, 0.7);
+  }
+  .btn-grad:hover {
+    background-position: right center;
+    box-shadow: 0 0 48px -8px rgba(139, 92, 246, 0.75);
+  }
+  .btn-glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    transition: border-color 300ms ease, background-color 300ms ease;
+  }
+  .btn-glass:hover {
+    border-color: rgba(245, 184, 65, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* ---- Inputs ---- */
+  .input-line {
+    @apply w-full border-b border-white/20 bg-transparent py-3 font-body text-base text-white placeholder:text-white/35 focus:border-gold focus:outline-none;
+    transition: border-color 200ms ease;
+  }
+
+  /* ---- Hero line masks (hidden state applied in JS) ---- */
+  .line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .line-inner {
+    display: block;
+    will-change: transform;
+  }
+
+  .text-outline-light {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.22);
+  }
+
+  .grain {
+    position: fixed;
+    inset: -50%;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Aurora blob base */
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    will-change: transform;
+  }
+
+  /* Custom cursor ring/dot */
+  /* Centring is handled by GSAP xPercent/yPercent so its x/y tween
+     never overrides the centering transform. */
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    pointer-events: none;
+    border-radius: 9999px;
+  }
+  .cursor-dot {
+    width: 7px;
+    height: 7px;
+    background: #f5b841;
+    box-shadow: 0 0 14px rgba(245, 184, 65, 0.9);
+  }
+  .cursor-ring {
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid rgba(245, 184, 65, 0.6);
+    transition: width 220ms ease, height 220ms ease, border-color 220ms ease, opacity 220ms ease;
+  }
+  .cursor-ring.is-hovering {
+    width: 58px;
+    height: 58px;
+    border-color: rgba(167, 139, 250, 0.9);
+  }
+}
+
+/* Marquee pause on hover */
+.marquee-track:hover .marquee-inner {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-inner,
+  .text-grad-gold,
+  .text-grad-iris,
+  .cursor-dot,
+  .cursor-ring {
+    animation: none !important;
+  }
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* Hide native cursor is intentionally kept — we ADD a glow trail, not replace it. */
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
