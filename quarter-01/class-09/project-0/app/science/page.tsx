@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import ScienceSteps from "@/components/site/ScienceSteps";
+import FuelCycle from "@/components/site/FuelCycle";
 import NextChapter from "@/components/site/NextChapter";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function SciencePage() {
         sub="Contain. Heat. Harvest. The entire process in three acts — and why it can never run away."
       />
       <ScienceSteps />
+      <FuelCycle />
       <NextChapter index="04" label="The Roadmap" href="/roadmap" />
     </main>
   );

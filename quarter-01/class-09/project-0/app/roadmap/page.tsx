@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import RoadmapTimeline from "@/components/site/RoadmapTimeline";
+import RoadmapPrinciples from "@/components/site/RoadmapPrinciples";
 import NextChapter from "@/components/site/NextChapter";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RoadmapPage() {
         sub="The years between a laboratory success and a gigawatt in the ground."
       />
       <RoadmapTimeline />
+      <RoadmapPrinciples />
       <NextChapter index="05" label="Contact" href="/contact" />
     </main>
   );

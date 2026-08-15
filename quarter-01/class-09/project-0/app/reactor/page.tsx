@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/site/PageHero";
 import ReactorFacts from "@/components/site/ReactorFacts";
+import ReactorSystems from "@/components/site/ReactorSystems";
 import NextChapter from "@/components/site/NextChapter";
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function ReactorPage() {
         sub="Tokamak 01 — a star in a magnetic cage. This is what containment looks like."
       />
       <ReactorFacts />
+      <ReactorSystems />
       <NextChapter index="03" label="The Science" href="/science" />
     </main>
   );
