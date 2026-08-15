@@ -8,20 +8,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * SiteFX — single client orchestrator for all scroll motion.
- * Sections stay server-rendered (fast); this component locates them by
- * data-attributes and wires GSAP + the ember cursor glow.
+ * Runs on every page (Nav/Footer/SiteFX live in the root layout).
+ * Sections stay server-rendered; this component locates them by
+ * data-attributes and wires GSAP + the ember cursor glow. Every tween
+ * is guarded so it simply no-ops on pages that lack its elements.
  */
 export default function SiteFX() {
   useEffect(() => {
     const mq = gsap.matchMedia();
 
     mq.add("(prefers-reduced-motion: no-preference)", () => {
-      // ── Hero intro ────────────────────────────────────────────────
+      // ── Page-hero intro (home hero + all subpage heroes) ──────────
       const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
       intro
         .from(
           "[data-hero-line] .line-inner",
-          { yPercent: 118, duration: 1.15, stagger: 0.1 },
+          { yPercent: 118, duration: 1.1, stagger: 0.1 },
           0.08
         )
         .from(
@@ -30,18 +32,20 @@ export default function SiteFX() {
           "-=0.55"
         );
 
-      // ── Hero core drifts off as the page scrolls away ─────────────
-      gsap.to("[data-core-wrap]", {
-        opacity: 0,
-        scale: 0.9,
-        ease: "none",
-        scrollTrigger: {
-          trigger: "[data-hero]",
-          start: "top top",
-          end: "bottom 15%",
-          scrub: true,
-        },
-      });
+      // ── Home: plasma core drifts off as the page scrolls away ─────
+      if (document.querySelector("[data-hero]")) {
+        gsap.to("[data-core-wrap]", {
+          opacity: 0,
+          scale: 0.9,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "[data-hero]",
+            start: "top top",
+            end: "bottom 15%",
+            scrub: true,
+          },
+        });
+      }
 
       // ── Generic reveal-on-scroll ──────────────────────────────────
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
@@ -75,21 +79,23 @@ export default function SiteFX() {
       });
 
       // ── Manifesto word-by-word scrub highlight ────────────────────
-      gsap.fromTo(
-        "[data-manifesto] .word",
-        { opacity: 0.12 },
-        {
-          opacity: 1,
-          stagger: 0.03,
-          ease: "none",
-          scrollTrigger: {
-            trigger: "[data-manifesto]",
-            start: "top 72%",
-            end: "bottom 42%",
-            scrub: 0.4,
-          },
-        }
-      );
+      if (document.querySelector("[data-manifesto]")) {
+        gsap.fromTo(
+          "[data-manifesto] .word",
+          { opacity: 0.12 },
+          {
+            opacity: 1,
+            stagger: 0.03,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "[data-manifesto]",
+              start: "top 72%",
+              end: "bottom 42%",
+              scrub: 0.4,
+            },
+          }
+        );
+      }
 
       // ── Count-up metrics ──────────────────────────────────────────
       gsap.utils.toArray<HTMLElement>("[data-count]").forEach((el) => {
@@ -110,22 +116,24 @@ export default function SiteFX() {
         });
       });
 
-      // ── Roadmap timeline line grows as you scroll ─────────────────
-      gsap.fromTo(
-        "[data-timeline-line]",
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          transformOrigin: "top center",
-          scrollTrigger: {
-            trigger: "[data-timeline]",
-            start: "top 70%",
-            end: "bottom 65%",
-            scrub: 0.5,
-          },
-        }
-      );
+      // ── Timeline line grows as you scroll ─────────────────────────
+      if (document.querySelector("[data-timeline]")) {
+        gsap.fromTo(
+          "[data-timeline-line]",
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            transformOrigin: "top center",
+            scrollTrigger: {
+              trigger: "[data-timeline]",
+              start: "top 70%",
+              end: "bottom 65%",
+              scrub: 0.5,
+            },
+          }
+        );
+      }
     });
 
     return () => {

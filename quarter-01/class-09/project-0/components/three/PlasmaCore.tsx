@@ -193,9 +193,8 @@ export default function PlasmaCore() {
     let coreMat: THREE.ShaderMaterial | null = null;
     let paused = false;
     let visible = true;
-    let raf = 0;
     let destroyed = false;
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     let speed = 1;
 
     const start = () => {
@@ -237,34 +236,30 @@ export default function PlasmaCore() {
 
     const loop = () => {
       if (destroyed || !renderer || !scene || !camera || !sphereGroup) return;
-      const dt = Math.min(clock.getDelta(), 0.05);
-      const t = clock.elapsedTime * speed;
+      timer.update();
+      const t = timer.getElapsed() * speed;
 
-      sphereGroup.rotation.y += dt * 0.1;
-      sphereGroup.rotation.x = Math.sin(t * 0.22) * 0.07;
-
-      // pointer parallax
-      if (finePointer && mouse.targetX !== 0) {
-        mouse.currentX += (mouse.targetX - mouse.currentX) * 0.04;
-        mouse.currentY += (mouse.targetY - mouse.currentY) * 0.04;
-        sphereGroup.rotation.y += mouse.currentX * 0.12;
-        sphereGroup.rotation.x += -mouse.currentY * 0.06;
+      // Static orientation — the object only tilts toward the pointer.
+      // No autonomous rotation (a continuously spinning hero object reads
+      // as amateur); the shader keeps the surface alive instead.
+      if (finePointer) {
+        mouse.currentX += (mouse.targetX - mouse.currentX) * 0.05;
+        mouse.currentY += (mouse.targetY - mouse.currentY) * 0.05;
+        sphereGroup.rotation.y = mouse.currentX * 0.35;
+        sphereGroup.rotation.x = -mouse.currentY * 0.25;
+      } else {
+        sphereGroup.rotation.y = 0;
+        sphereGroup.rotation.x = 0;
       }
 
-      if (ring) {
-        ring.rotation.y += dt * 0.03;
-        ring.rotation.z += dt * 0.006;
-      }
       if (coreSprite) {
-        const s = 1 + Math.sin(t * 1.5) * 0.05;
+        const s = 1 + Math.sin(t * 1.4) * 0.03;
         coreSprite.scale.setScalar(s);
         (coreSprite.material as THREE.SpriteMaterial).opacity =
-          0.65 + Math.sin(t * 1.5 + 0.4) * 0.18;
+          0.62 + Math.sin(t * 1.4 + 0.4) * 0.12;
       }
       if (coreMat) coreMat.uniforms.uTime.value = t;
-      if (glowMesh && (glowMesh.material as THREE.ShaderMaterial).uniforms) {
-        (glowMesh.material as THREE.ShaderMaterial).uniforms.uTime.value = t;
-      }
+      // glow shell shader is time-static — no uTime uniform to update
 
       renderer.render(scene, camera);
     };
@@ -405,7 +400,7 @@ export default function PlasmaCore() {
       if (reduced) {
         // one static frame, no animation
         speed = 0;
-        clock.start();
+        timer.reset();
         renderer.render(scene, camera);
         return;
       }
@@ -435,7 +430,6 @@ export default function PlasmaCore() {
       document.removeEventListener("visibilitychange", onVisibility);
       io.disconnect();
       stop();
-      cancelAnimationFrame(raf);
       if (renderer && scene) {
         scene.traverse((obj) => {
           if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
@@ -448,6 +442,7 @@ export default function PlasmaCore() {
         if (coreSprite) (coreSprite.material as THREE.SpriteMaterial).map?.dispose();
         if (halo) (halo.material as THREE.SpriteMaterial).map?.dispose();
         if (ring) (ring.material as THREE.PointsMaterial).map?.dispose();
+        timer.dispose();
         renderer.dispose();
         renderer.domElement.remove();
       }

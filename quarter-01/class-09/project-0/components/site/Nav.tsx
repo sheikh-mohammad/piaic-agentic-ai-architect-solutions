@@ -1,16 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const LINKS = [
-  { label: "Manifesto", href: "#manifesto" },
-  { label: "Reactor", href: "#reactor" },
-  { label: "Science", href: "#science" },
-  { label: "Roadmap", href: "#roadmap" },
-  { label: "Contact", href: "#contact" },
+  { label: "Manifesto", href: "/manifesto" },
+  { label: "Reactor", href: "/reactor" },
+  { label: "Science", href: "/science" },
+  { label: "Roadmap", href: "/roadmap" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -28,6 +30,11 @@ export default function Nav() {
     };
   }, [open]);
 
+  const isActive = (href: string) =>
+    href === "/contact"
+      ? pathname === "/contact"
+      : pathname.startsWith(href);
+
   return (
     <>
       <header
@@ -39,9 +46,9 @@ export default function Nav() {
       >
         <div className="wrap flex h-16 items-center justify-between sm:h-[72px]">
           <a
-            href="#top"
+            href="/"
             className="group flex items-center gap-2 font-display text-lg font-semibold tracking-wide cursor-pointer"
-            aria-label="HELIOS — back to top"
+            aria-label="HELIOS — home"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_rgba(255,90,31,0.9)] transition-transform duration-300 group-hover:scale-125" />
             HELIOS<span className="text-primary">®</span>
@@ -52,15 +59,15 @@ export default function Nav() {
               <a
                 key={l.href}
                 href={l.href}
-                className="font-mono text-[12px] uppercase tracking-[0.16em] text-muted transition-colors duration-200 hover:text-fg cursor-pointer"
+                aria-current={isActive(l.href) ? "page" : undefined}
+                className={`font-mono text-[12px] uppercase tracking-[0.16em] transition-colors duration-200 cursor-pointer ${
+                  isActive(l.href) ? "text-primary" : "text-muted hover:text-fg"
+                }`}
               >
                 {l.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              className="btn-primary cursor-pointer"
-            >
+            <a href="/contact" className="btn-primary cursor-pointer">
               Get access
             </a>
           </nav>
@@ -94,12 +101,24 @@ export default function Nav() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile" className="flex flex-col gap-6">
+          <a
+            href="/"
+            onClick={() => setOpen(false)}
+            className={`font-display text-3xl tracking-wide transition-colors duration-200 cursor-pointer ${
+              pathname === "/" ? "text-primary" : "text-fg hover:text-primary"
+            }`}
+          >
+            00&ensp;Home
+          </a>
           {LINKS.map((l, i) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="group flex items-baseline gap-4 font-display text-3xl tracking-wide text-fg transition-colors duration-200 hover:text-primary cursor-pointer"
+              aria-current={isActive(l.href) ? "page" : undefined}
+              className={`group flex items-baseline gap-4 font-display text-3xl tracking-wide transition-colors duration-200 cursor-pointer ${
+                isActive(l.href) ? "text-primary" : "text-fg hover:text-primary"
+              }`}
             >
               <span className="font-mono text-xs text-primary">
                 0{i + 1}
@@ -109,7 +128,7 @@ export default function Nav() {
           ))}
         </nav>
         <a
-          href="#contact"
+          href="/contact"
           onClick={() => setOpen(false)}
           className="btn-primary mt-10 w-fit cursor-pointer"
         >

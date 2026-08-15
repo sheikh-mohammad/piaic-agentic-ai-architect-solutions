@@ -37,7 +37,6 @@ export default function CoreFacts() {
               <div className="reactor-ring-outer" />
               <div className="reactor-ring" />
               <div className="reactor-ring-plasma" />
-              <div className="reactor-dot" />
             </div>
             <p
               data-reveal

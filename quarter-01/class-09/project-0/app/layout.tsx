@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Unbounded, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import Nav from "@/components/site/Nav";
+import Footer from "@/components/site/Footer";
+import SiteFX from "@/components/site/SiteFX";
 import "./globals.css";
 
 const display = Unbounded({
@@ -45,7 +48,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${display.variable} ${body.variable} ${mono.variable}`}
     >
       <body className="noise relative">
+        <Nav />
         {children}
+        <Footer />
+        <SiteFX />
       </body>
     </html>
   );

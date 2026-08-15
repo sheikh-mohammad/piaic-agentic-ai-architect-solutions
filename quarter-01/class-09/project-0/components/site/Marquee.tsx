@@ -51,7 +51,7 @@ function Row({ hidden = false }: { hidden?: boolean }) {
 
 export default function Marquee() {
   return (
-    <div className="relative z-10 border-y border-border bg-surface">
+    <div className="relative z-10 overflow-hidden border-y border-border bg-surface">
       <div className="marquee-track flex w-max py-5">
         <Row />
         <Row hidden />
