@@ -5,22 +5,24 @@ import Footer from "@/components/site/Footer";
 import SiteFX from "@/components/site/SiteFX";
 import "./globals.css";
 
+// Weights trimmed to what the design actually uses — fewer font files
+// to download on weak devices. 400 display is never referenced.
 const display = Unbounded({
   variable: "--font-helios-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["500", "600", "700", "800"],
 });
 
 const body = Space_Grotesk({
   variable: "--font-helios-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 const mono = JetBrains_Mono({
   variable: "--font-helios-mono",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {

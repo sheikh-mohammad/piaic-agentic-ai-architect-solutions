@@ -1,17 +1,55 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import * as THREE from "three";
+import {
+  WebGLRenderer,
+  Scene,
+  PerspectiveCamera,
+  IcosahedronGeometry,
+  ShaderMaterial,
+  Mesh,
+  Group,
+  Sprite,
+  SpriteMaterial,
+  Points,
+  PointsMaterial,
+  BufferGeometry,
+  BufferAttribute,
+  CanvasTexture,
+  Color,
+  AdditiveBlending,
+  Timer,
+  type Material,
+} from "three";
 
 /* ════════════════════════════════════════════════════════════════════
    PlasmaCore — procedural fusion core rendered with a custom shader.
-   One WebGL context. Performance-first:
+   One WebGL context. Performance-first, tiered for weak devices:
    - deferred context creation (requestIdleCallback / rAF after paint)
-   - DPR capped at 1.75, no MSAA (shader does the shading)
+   - DPR + particle count scale with a device "tier" so the same scene
+     runs on a 3 GB phone (low-power GPU, 1.0 DPR) and a desktop
+     (1.75 DPR, denser particle ring)
+   - no MSAA (shader does the shading)
    - render loop pauses when off-screen or tab hidden
    - respects prefers-reduced-motion (single static frame)
    - full disposal on unmount + graceful CSS fallback
    ════════════════════════════════════════════════════════════════════ */
+
+/** Conservative capability probe. Chromium exposes deviceMemory (GB);
+    elsewhere we fall back to CPU cores. 3 GB phones land in "low". */
+function deviceTier(): "low" | "mid" | "high" {
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  const mem = typeof nav.deviceMemory === "number" ? nav.deviceMemory : null;
+  const cores = navigator.hardwareConcurrency || 8;
+  if (mem !== null) {
+    if (mem <= 3) return "low";
+    if (mem <= 4) return "mid";
+    return "high";
+  }
+  if (cores <= 4) return "low";
+  if (cores <= 8) return "mid";
+  return "high";
+}
 
 const NOISE = /* glsl */ `
 vec3 mod289(vec3 x){ return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -154,7 +192,7 @@ function makeRadialTexture(size: number, stops: Array<[number, string]>) {
   for (const [offset, color] of stops) g.addColorStop(offset, color);
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, size, size);
-  const tex = new THREE.CanvasTexture(c);
+  const tex = new CanvasTexture(c);
   tex.needsUpdate = true;
   return tex;
 }
@@ -178,23 +216,24 @@ export default function PlasmaCore() {
     if (!holder) return;
     if (failedRef.current) return;
 
+    const tier = deviceTier();
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const finePointer = window.matchMedia("(pointer: fine)").matches;
 
-    let renderer: THREE.WebGLRenderer | null = null;
-    let scene: THREE.Scene | null = null;
-    let camera: THREE.PerspectiveCamera | null = null;
-    let sphereGroup: THREE.Group | null = null;
-    let coreSprite: THREE.Sprite | null = null;
-    let halo: THREE.Sprite | null = null;
-    let ring: THREE.Points | null = null;
-    let glowMesh: THREE.Mesh | null = null;
-    let shellMat: THREE.ShaderMaterial | null = null;
-    let coreMat: THREE.ShaderMaterial | null = null;
+    let renderer: WebGLRenderer | null = null;
+    let scene: Scene | null = null;
+    let camera: PerspectiveCamera | null = null;
+    let sphereGroup: Group | null = null;
+    let coreSprite: Sprite | null = null;
+    let halo: Sprite | null = null;
+    let ring: Points | null = null;
+    let glowMesh: Mesh | null = null;
+    let shellMat: ShaderMaterial | null = null;
+    let coreMat: ShaderMaterial | null = null;
     let paused = false;
     let visible = true;
     let destroyed = false;
-    const timer = new THREE.Timer();
+    const timer = new Timer();
     let speed = 1;
 
     const start = () => {
@@ -255,7 +294,7 @@ export default function PlasmaCore() {
       if (coreSprite) {
         const s = 1 + Math.sin(t * 1.4) * 0.03;
         coreSprite.scale.setScalar(s);
-        (coreSprite.material as THREE.SpriteMaterial).opacity =
+        (coreSprite.material as SpriteMaterial).opacity =
           0.62 + Math.sin(t * 1.4 + 0.4) * 0.12;
       }
       if (coreMat) coreMat.uniforms.uTime.value = t;
@@ -273,10 +312,11 @@ export default function PlasmaCore() {
     const build = () => {
       try {
         if (!webglAvailable()) throw new Error("no-webgl");
-        renderer = new THREE.WebGLRenderer({
+        renderer = new WebGLRenderer({
           antialias: false,
           alpha: true,
-          powerPreference: "high-performance",
+          // weak devices prefer the low-power (often integrated) GPU
+          powerPreference: tier === "low" ? "low-power" : "high-performance",
           stencil: false,
           depth: true,
         });
@@ -286,7 +326,10 @@ export default function PlasmaCore() {
         return;
       }
 
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+      // Render resolution is the #1 GPU cost: 1.0 DPR on 3 GB devices,
+      // 1.75 on desktop. The shader provides the anti-aliasing.
+      const dprCap = tier === "low" ? 1 : tier === "mid" ? 1.25 : 1.75;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dprCap));
       renderer.setClearColor(0x000000, 0);
       const canvas = renderer.domElement;
       canvas.style.cssText =
@@ -294,36 +337,36 @@ export default function PlasmaCore() {
       canvas.setAttribute("aria-hidden", "true");
       holder.appendChild(canvas);
 
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
+      scene = new Scene();
+      camera = new PerspectiveCamera(42, 1, 0.1, 100);
 
-      const geo = new THREE.IcosahedronGeometry(1, 5);
+      const geo = new IcosahedronGeometry(1, 5);
 
-      coreMat = new THREE.ShaderMaterial({
+      coreMat = new ShaderMaterial({
         vertexShader: VERTEX,
         fragmentShader: FRAGMENT,
         uniforms: {
           uTime: { value: 0 },
-          uDeep: { value: new THREE.Color("#0c0a08") },
-          uEmber: { value: new THREE.Color("#ff3d00") },
-          uAmber: { value: new THREE.Color("#ffb01f") },
-          uHot: { value: new THREE.Color("#ffe0b8") },
+          uDeep: { value: new Color("#0c0a08") },
+          uEmber: { value: new Color("#ff3d00") },
+          uAmber: { value: new Color("#ffb01f") },
+          uHot: { value: new Color("#ffe0b8") },
         },
       });
-      const core = new THREE.Mesh(geo, coreMat);
+      const core = new Mesh(geo, coreMat);
 
-      shellMat = new THREE.ShaderMaterial({
+      shellMat = new ShaderMaterial({
         vertexShader: GLOW_VERTEX,
         fragmentShader: GLOW_FRAGMENT,
-        uniforms: { uEmber: { value: new THREE.Color("#ff7a33") } },
+        uniforms: { uEmber: { value: new Color("#ff7a33") } },
         transparent: true,
-        blending: THREE.AdditiveBlending,
+        blending: AdditiveBlending,
         depthWrite: false,
       });
-      glowMesh = new THREE.Mesh(geo, shellMat);
+      glowMesh = new Mesh(geo, shellMat);
       glowMesh.scale.setScalar(1.06);
 
-      sphereGroup = new THREE.Group();
+      sphereGroup = new Group();
       sphereGroup.add(core, glowMesh);
       scene.add(sphereGroup);
 
@@ -334,10 +377,10 @@ export default function PlasmaCore() {
         [0.5, "rgba(255,90,31,0.35)"],
         [1, "rgba(255,90,31,0)"],
       ]);
-      coreSprite = new THREE.Sprite(
-        new THREE.SpriteMaterial({
+      coreSprite = new Sprite(
+        new SpriteMaterial({
           map: coreTex,
-          blending: THREE.AdditiveBlending,
+          blending: AdditiveBlending,
           depthWrite: false,
           transparent: true,
         })
@@ -351,10 +394,10 @@ export default function PlasmaCore() {
         [0.4, "rgba(255,90,31,0.12)"],
         [1, "rgba(255,90,31,0)"],
       ]);
-      halo = new THREE.Sprite(
-        new THREE.SpriteMaterial({
+      halo = new Sprite(
+        new SpriteMaterial({
           map: haloTex,
-          blending: THREE.AdditiveBlending,
+          blending: AdditiveBlending,
           depthWrite: false,
           transparent: true,
           opacity: 0.6,
@@ -363,13 +406,13 @@ export default function PlasmaCore() {
       halo.scale.setScalar(6.5);
       sphereGroup.add(halo);
 
-      // particle ring
+      // particle ring — density follows the tier
       const dotTex = makeRadialTexture(32, [
         [0, "rgba(255,244,232,1)"],
         [0.4, "rgba(255,176,31,0.6)"],
         [1, "rgba(255,90,31,0)"],
       ]);
-      const count = 1500;
+      const count = tier === "low" ? 500 : tier === "mid" ? 900 : 1500;
       const pos = new Float32Array(count * 3);
       for (let i = 0; i < count; i++) {
         const ang = Math.random() * Math.PI * 2;
@@ -379,16 +422,16 @@ export default function PlasmaCore() {
         pos[i * 3 + 1] = Math.sin(ang) * r * 0.55 + tilt * 0.35;
         pos[i * 3 + 2] = (Math.random() - 0.5) * 0.55;
       }
-      const ringGeo = new THREE.BufferGeometry();
-      ringGeo.setAttribute("position", new THREE.BufferAttribute(pos, 3));
-      ring = new THREE.Points(
+      const ringGeo = new BufferGeometry();
+      ringGeo.setAttribute("position", new BufferAttribute(pos, 3));
+      ring = new Points(
         ringGeo,
-        new THREE.PointsMaterial({
+        new PointsMaterial({
           map: dotTex,
           size: 0.055,
           transparent: true,
           opacity: 0.8,
-          blending: THREE.AdditiveBlending,
+          blending: AdditiveBlending,
           depthWrite: false,
           sizeAttenuation: true,
         })
@@ -432,16 +475,16 @@ export default function PlasmaCore() {
       stop();
       if (renderer && scene) {
         scene.traverse((obj) => {
-          if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
+          if (obj instanceof Mesh || obj instanceof Points) {
             obj.geometry?.dispose();
-            const mat = obj.material as THREE.Material | THREE.Material[];
+            const mat = obj.material as Material | Material[];
             if (Array.isArray(mat)) mat.forEach((m) => m.dispose());
             else mat?.dispose();
           }
         });
-        if (coreSprite) (coreSprite.material as THREE.SpriteMaterial).map?.dispose();
-        if (halo) (halo.material as THREE.SpriteMaterial).map?.dispose();
-        if (ring) (ring.material as THREE.PointsMaterial).map?.dispose();
+        if (coreSprite) (coreSprite.material as SpriteMaterial).map?.dispose();
+        if (halo) (halo.material as SpriteMaterial).map?.dispose();
+        if (ring) (ring.material as PointsMaterial).map?.dispose();
         timer.dispose();
         renderer.dispose();
         renderer.domElement.remove();
