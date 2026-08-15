@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Hero from "@/components/site/Hero";
 import Marquee from "@/components/site/Marquee";
+import StatsBand from "@/components/site/StatsBand";
 import ChapterIndex from "@/components/site/ChapterIndex";
+import WhyFusion from "@/components/site/WhyFusion";
 import ManifestoTeaser from "@/components/site/ManifestoTeaser";
+import NewsList from "@/components/site/NewsList";
 import CTAStrip from "@/components/site/CTAStrip";
 
 export const metadata: Metadata = {
@@ -16,8 +19,11 @@ export default function Home() {
     <main className="relative">
       <Hero />
       <Marquee />
+      <StatsBand />
       <ChapterIndex />
+      <WhyFusion />
       <ManifestoTeaser />
+      <NewsList />
       <CTAStrip />
     </main>
   );

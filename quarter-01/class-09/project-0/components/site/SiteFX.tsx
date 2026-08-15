@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -12,25 +13,37 @@ gsap.registerPlugin(ScrollTrigger);
  * Sections stay server-rendered; this component locates them by
  * data-attributes and wires GSAP + the ember cursor glow. Every tween
  * is guarded so it simply no-ops on pages that lack its elements.
+ *
+ * The motion effect re-runs whenever the route changes (usePathname)
+ * so a soft navigation to another page gets a fresh hero intro and
+ * ScrollTriggers for the new page's DOM. The hero intro uses
+ * clearProps so content can never be left mid-animation (hidden) if
+ * a timeline is ever interrupted.
  */
 export default function SiteFX() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const mq = gsap.matchMedia();
 
     mq.add("(prefers-reduced-motion: no-preference)", () => {
       // ── Page-hero intro (home hero + all subpage heroes) ──────────
-      const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
-      intro
-        .from(
-          "[data-hero-line] .line-inner",
-          { yPercent: 118, duration: 1.1, stagger: 0.1 },
-          0.08
-        )
-        .from(
-          "[data-hero-fade]",
-          { y: 26, opacity: 0, duration: 0.9, stagger: 0.07 },
-          "-=0.55"
-        );
+      try {
+        const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
+        intro
+          .from(
+            "[data-hero-line] .line-inner",
+            { yPercent: 118, duration: 1.1, stagger: 0.1, clearProps: "transform" },
+            0.08
+          )
+          .from(
+            "[data-hero-fade]",
+            { y: 26, opacity: 0, duration: 0.9, stagger: 0.07, clearProps: "opacity,transform" },
+            "-=0.55"
+          );
+      } catch {
+        /* never let JS leave above-the-fold content hidden */
+      }
 
       // ── Home: plasma core drifts off as the page scrolls away ─────
       if (document.querySelector("[data-hero]")) {
@@ -139,7 +152,7 @@ export default function SiteFX() {
     return () => {
       mq.revert();
     };
-  }, []);
+  }, [pathname]);
 
   // Ember cursor glow — GPU-cheap transform lerp, pointer-fine only.
   useEffect(() => {
