@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const STATEMENT =
   "Every civilisation is defined by the energy it masters.";
 
@@ -19,9 +21,9 @@ export default function ManifestoTeaser() {
             </span>
           ))}
         </h2>
-        <a data-reveal href="/manifesto" className="btn-ghost mt-10 inline-flex cursor-pointer">
+        <Link data-reveal href="/manifesto" className="btn-ghost mt-10 inline-flex cursor-pointer">
           Read the manifesto
-        </a>
+        </Link>
       </div>
     </section>
   );

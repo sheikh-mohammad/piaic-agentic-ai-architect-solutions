@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const CHAPTERS = [
   {
     i: "01",
@@ -48,7 +50,7 @@ export default function ChapterIndex() {
         </p>
         <div data-reveal-group>
           {CHAPTERS.map((c) => (
-            <a
+            <Link
               key={c.href}
               href={c.href}
               className="group grid cursor-pointer grid-cols-[auto_1fr_auto] items-center gap-4 border-t border-border py-6 transition-colors duration-300 last:border-b hover:bg-surface/40 sm:grid-cols-[80px_1fr_auto_auto] sm:gap-6 sm:py-8"
@@ -63,7 +65,7 @@ export default function ChapterIndex() {
               <span className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-fg transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-bg">
                 <Arrow />
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

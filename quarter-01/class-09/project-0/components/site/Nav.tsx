@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const LINKS = [
   { label: "Manifesto", href: "/manifesto" },
@@ -45,18 +46,18 @@ export default function Nav() {
         }`}
       >
         <div className="wrap flex h-16 items-center justify-between sm:h-[72px]">
-          <a
+          <Link
             href="/"
             className="group flex items-center gap-2 font-display text-lg font-semibold tracking-wide cursor-pointer"
             aria-label="HELIOS — home"
           >
             <span className="inline-block h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_rgba(255,90,31,0.9)] transition-transform duration-300 group-hover:scale-125" />
             HELIOS<span className="text-primary">®</span>
-          </a>
+          </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
             {LINKS.map((l) => (
-              <a
+              <Link
                 key={l.href}
                 href={l.href}
                 aria-current={isActive(l.href) ? "page" : undefined}
@@ -65,11 +66,11 @@ export default function Nav() {
                 }`}
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a href="/contact" className="btn-primary cursor-pointer">
+            <Link href="/contact" className="btn-primary cursor-pointer">
               Get access
-            </a>
+            </Link>
           </nav>
 
           <button
@@ -101,7 +102,7 @@ export default function Nav() {
         aria-hidden={!open}
       >
         <nav aria-label="Mobile" className="flex flex-col gap-6">
-          <a
+          <Link
             href="/"
             onClick={() => setOpen(false)}
             className={`font-display text-3xl tracking-wide transition-colors duration-200 cursor-pointer ${
@@ -109,9 +110,9 @@ export default function Nav() {
             }`}
           >
             00&ensp;Home
-          </a>
+          </Link>
           {LINKS.map((l, i) => (
-            <a
+            <Link
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
@@ -124,16 +125,16 @@ export default function Nav() {
                 0{i + 1}
               </span>
               {l.label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <a
+        <Link
           href="/contact"
           onClick={() => setOpen(false)}
           className="btn-primary mt-10 w-fit cursor-pointer"
         >
           Get access
-        </a>
+        </Link>
       </div>
     </>
   );

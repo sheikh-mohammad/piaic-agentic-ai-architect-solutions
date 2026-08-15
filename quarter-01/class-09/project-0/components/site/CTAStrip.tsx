@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CTAStrip() {
   return (
     <section className="relative overflow-hidden border-t border-border py-24 sm:py-36">
@@ -16,9 +18,9 @@ export default function CTAStrip() {
           We&rsquo;re hiring plasma physicists, engineers and believers. Or
           just say hello.
         </p>
-        <a data-reveal href="/contact" className="btn-primary mt-10 inline-flex cursor-pointer">
+        <Link data-reveal href="/contact" className="btn-primary mt-10 inline-flex cursor-pointer">
           Get early access
-        </a>
+        </Link>
       </div>
     </section>
   );

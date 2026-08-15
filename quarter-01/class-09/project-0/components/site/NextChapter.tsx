@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NextChapter({
   index,
   label,
@@ -9,7 +11,7 @@ export default function NextChapter({
 }) {
   return (
     <div className="border-t border-border">
-      <a
+      <Link
         href={href}
         className="wrap group flex cursor-pointer items-center justify-between py-12 sm:py-16"
       >
@@ -24,7 +26,7 @@ export default function NextChapter({
             <path d="M4 12h15m0 0-6-6m6 6-6 6" />
           </svg>
         </span>
-      </a>
+      </Link>
     </div>
   );
 }

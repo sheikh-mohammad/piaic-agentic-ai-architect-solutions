@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#080709"/>
+  <circle cx="32" cy="32" r="21" fill="none" stroke="#ffb01f" stroke-opacity="0.45" stroke-width="2" stroke-dasharray="3 4"/>
+  <circle cx="32" cy="32" r="9.5" fill="url(#ember)"/>
+  <defs>
+    <radialGradient id="ember" cx="40%" cy="34%" r="80%">
+      <stop offset="0%" stop-color="#ffe0b8"/>
+      <stop offset="42%" stop-color="#ffb01f"/>
+      <stop offset="100%" stop-color="#ff3d00"/>
+    </radialGradient>
+  </defs>
+</svg>

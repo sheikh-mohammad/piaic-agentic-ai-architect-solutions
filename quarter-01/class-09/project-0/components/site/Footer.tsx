@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const COMPANY = [
   { label: "Manifesto", href: "/manifesto" },
   { label: "Reactor", href: "/reactor" },
@@ -13,7 +15,7 @@ const CONNECT = [
 ];
 
 const CONTACT = [
-  { label: "hello@helios.energy", href: "mailto:hello@helios.energy", external: true },
+  { label: "hello@helios.energy", href: "mailto:hello@helios.energy" },
   { label: "Press", href: "/contact" },
 ];
 
@@ -35,14 +37,30 @@ function FooterCol({
       <ul className="space-y-3">
         {links.map((l) => (
           <li key={l.label}>
-            <a
-              href={l.href}
-              target={l.external ? "_blank" : undefined}
-              rel={l.external ? "noopener noreferrer" : undefined}
-              className="text-sm text-fg/70 transition-colors duration-200 hover:text-primary cursor-pointer"
-            >
-              {l.label}
-            </a>
+            {l.external ? (
+              <a
+                href={l.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-fg/70 transition-colors duration-200 hover:text-primary cursor-pointer"
+              >
+                {l.label}
+              </a>
+            ) : l.href.startsWith("mailto:") ? (
+              <a
+                href={l.href}
+                className="text-sm text-fg/70 transition-colors duration-200 hover:text-primary cursor-pointer"
+              >
+                {l.label}
+              </a>
+            ) : (
+              <Link
+                href={l.href}
+                className="text-sm text-fg/70 transition-colors duration-200 hover:text-primary cursor-pointer"
+              >
+                {l.label}
+              </Link>
+            )}
           </li>
         ))}
       </ul>
@@ -56,13 +74,13 @@ export default function Footer() {
       <div className="wrap">
         <div className="grid gap-12 pb-20 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div>
-            <a
+            <Link
               href="/"
               className="flex items-center gap-2 font-display text-xl font-semibold cursor-pointer"
             >
               <span className="inline-block h-2 w-2 rounded-full bg-primary shadow-[0_0_12px_rgba(255,90,31,0.9)]" />
               HELIOS<span className="text-primary">®</span>
-            </a>
+            </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
               Fusion energy, engineered to scale. A star, contained.
             </p>
