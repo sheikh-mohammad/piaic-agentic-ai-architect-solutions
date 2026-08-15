@@ -1,26 +1,315 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ──────────────────────────── Theme tokens ──────────────────────────── */
+@theme {
+  /* Colors — warm void + solar ember (no AI purple) */
+  --color-bg: #080709;
+  --color-surface: #0e0c0a;
+  --color-surface-2: #14110e;
+  --color-fg: #f4f1ea;
+  --color-muted: #8f8a82;
+  --color-border: #26221c;
+  --color-primary: #ff5a1f;
+  --color-primary-strong: #ff3d00;
+  --color-secondary: #ffb01f;
+  --color-tertiary: #ffe0b8;
+  --color-glow: #ff7a33;
+
+  /* Fonts — self-hosted via next/font */
+  --font-display: var(--font-helios-display);
+  --font-sans: var(--font-helios-body);
+  --font-mono: var(--font-helios-mono);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-bg);
+    scrollbar-color: #2a2620 #0a0908;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-helios-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* clip (not hidden) so position:sticky keeps working while still
+       preventing any accidental horizontal scroll */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: #0a0908;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0908;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2620;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ──────────────────────────── Film grain ──────────────────────────── */
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: -100%;
+  z-index: 90;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+/* ──────────────────────────── Editorial primitives ─────────────────── */
+.eyebrow {
+  font-family: var(--font-helios-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.hairline {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* Ember gradient text — signature headline treatment */
+.ember-text {
+  background: linear-gradient(90deg, #ff3d00 0%, #ff5a1f 40%, #ffb01f 75%, #ffe0b8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Outlined watermark type */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(244, 241, 234, 0.12);
+  color: transparent;
+}
+
+/* ──────────────────────────── Buttons ─────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #ff3d00, #ff5a1f);
+  color: #0a0908;
+  padding: 13px 26px;
+  border-radius: 9999px;
+  font-family: var(--font-helios-mono);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition:
+    box-shadow 250ms ease,
+    transform 250ms ease,
+    filter 250ms ease;
+  box-shadow: 0 0 24px rgba(255, 90, 31, 0.15);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 60px rgba(255, 90, 31, 0.28);
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--color-fg);
+  border: 1px solid var(--color-border);
+  padding: 13px 26px;
+  border-radius: 9999px;
+  font-family: var(--font-helios-mono);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 13px;
+  transition:
+    border-color 250ms ease,
+    color 250ms ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ──────────────────────────── Motion primitives ───────────────────── */
+/* Line-mask reveal (GSAP moves .line-inner) */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+.line-inner {
+  display: block;
+  will-change: transform;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+/* Ember cursor glow follower */
+.cursor-fx {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 300px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 60;
+  background: radial-gradient(
+    circle,
+    rgba(255, 90, 31, 0.09) 0%,
+    rgba(255, 90, 31, 0) 62%
+  );
+  transform: translate3d(-50%, -50%, 0);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+@media (pointer: coarse) {
+  .cursor-fx {
+    display: none;
+  }
+}
+
+/* ──────────────────────────── Layout container ───────────────────── */
+.wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* ──────────────────────────── Reactor (tokamak) visual ───────────── */
+.reactor-orb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 38% 36%,
+    #ffe0b8 0%,
+    #ff7a33 16%,
+    #ff3d00 42%,
+    #3a1506 70%,
+    #0e0c0a 92%,
+    #080709 100%
+  );
+  box-shadow:
+    0 0 120px rgba(255, 90, 31, 0.35),
+    inset 0 0 80px rgba(0, 0, 0, 0.6);
+  animation: corePulse 5s ease-in-out infinite;
+}
+@keyframes corePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.025);
+    filter: brightness(1.12);
+  }
+}
+.reactor-ring {
+  position: absolute;
+  inset: 8%;
+  border-radius: 9999px;
+  border: 1px dashed rgba(255, 176, 31, 0.5);
+}
+.reactor-ring-outer {
+  position: absolute;
+  inset: -6%;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 176, 31, 0.25);
+  animation: spin 46s linear infinite;
+}
+.reactor-ring-plasma {
+  position: absolute;
+  inset: 22%;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 224, 184, 0.85);
+  box-shadow: 0 0 24px rgba(255, 90, 31, 0.6);
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.reactor-dot {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #ffe0b8;
+  box-shadow: 0 0 20px 6px rgba(255, 176, 31, 0.75);
+  offset-path: path("M 50 8 a 42 42 0 1 1 -0.1 0 Z");
+  animation: orbit 7s linear infinite;
+}
+@keyframes orbit {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* ──────────────────────────── Reduced motion ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+  .cursor-fx {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
