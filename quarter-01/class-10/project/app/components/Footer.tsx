@@ -33,21 +33,25 @@ const columns = [
 export function Footer() {
   return (
     <footer className="bg-secondary text-on-secondary" role="contentinfo">
-      <div className="frame py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+      <div className="frame section">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5" style={{ gap: "2.5rem" }}>
           <div className="lg:col-span-2">
-            <Link href="/" className="group inline-flex items-center gap-3 mb-6" aria-label="Aroma Antiquaria Home">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/60 text-accent font-serif text-xl group-hover:bg-accent group-hover:text-on-accent transition-colors" aria-hidden="true">
+            <Link href="/" className="group inline-flex items-center gap-3" style={{ marginBottom: "1.5rem" }} aria-label="Aroma Antiquaria Home">
+              <span
+                className="flex items-center justify-center rounded-full border border-accent/60 text-accent font-serif text-xl group-hover:bg-accent group-hover:text-on-accent transition-colors"
+                style={{ width: "2.5rem", height: "2.5rem" }}
+                aria-hidden="true"
+              >
                 A
               </span>
               <span className="leading-tight">
                 <span className="block font-serif text-lg">Aroma Antiquaria</span>
-                <span className="block text-[0.65rem] uppercase tracking-[0.22em] text-on-secondary/60">
+                <span className="block text-on-secondary/60" style={{ fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.22em" }}>
                   Archaeology of Scent
                 </span>
               </span>
             </Link>
-            <p className="text-sm text-on-secondary/70 leading-relaxed max-w-sm font-light">
+            <p className="text-on-secondary/70 font-light" style={{ fontSize: "0.875rem", lineHeight: 1.7, maxWidth: "24rem" }}>
               A digital museum and research archive recovering the fragrances of the ancient world
               through molecular archaeology, textual analysis, and the craft of perfumery.
             </p>
@@ -55,13 +59,14 @@ export function Footer() {
 
           {columns.map((col) => (
             <nav key={col.title} aria-label={col.title}>
-              <h3 className="text-xs uppercase tracking-[0.2em] text-accent mb-5">{col.title}</h3>
-              <ul className="space-y-3" role="list">
+              <h3 className="text-accent" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.2em", marginBottom: "1.25rem" }}>{col.title}</h3>
+              <ul className="flex flex-col" style={{ gap: "0.75rem" }} role="list">
                 {col.links.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-sm text-on-secondary/80 hover:text-on-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+                      className="text-on-secondary/80 hover:text-on-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
+                      style={{ fontSize: "0.875rem" }}
                     >
                       {link.name}
                     </Link>
@@ -72,18 +77,18 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 pt-8 border-t border-on-secondary/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xs text-on-secondary/50">
+        <div className="flex flex-col md:flex-row items-center justify-between" style={{ marginTop: "3.5rem", paddingTop: "2rem", borderTop: "1px solid rgba(246,239,230,0.1)", gap: "1.5rem" }}>
+          <p className="text-on-secondary/50" style={{ fontSize: "0.75rem" }}>
             © {new Date().getFullYear()} Aroma Antiquaria. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <Link href="/contact" className="text-xs text-on-secondary/60 hover:text-on-secondary transition-colors">
+          <div className="flex items-center" style={{ gap: "1.5rem" }}>
+            <Link href="/contact" className="text-on-secondary/60 hover:text-on-secondary transition-colors" style={{ fontSize: "0.75rem" }}>
               Contact
             </Link>
-            <Link href="/" className="text-xs text-on-secondary/60 hover:text-on-secondary transition-colors">
+            <Link href="/" className="text-on-secondary/60 hover:text-on-secondary transition-colors" style={{ fontSize: "0.75rem" }}>
               Privacy
             </Link>
-            <Link href="/" className="text-xs text-on-secondary/60 hover:text-on-secondary transition-colors">
+            <Link href="/" className="text-on-secondary/60 hover:text-on-secondary transition-colors" style={{ fontSize: "0.75rem" }}>
               Terms
             </Link>
           </div>

@@ -31,14 +31,15 @@ export function Navigation() {
       role="banner"
     >
       <nav className="frame">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex items-center justify-between" style={{ height: "5rem" }}>
           <Link
             href="/"
             className="group flex items-center gap-3"
             aria-label="Aroma Antiquaria Home"
           >
             <span
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/60 text-accent font-serif text-xl transition-colors group-hover:bg-accent group-hover:text-on-accent"
+              className="flex items-center justify-center rounded-full border border-accent/60 text-accent font-serif text-xl transition-colors group-hover:bg-accent group-hover:text-on-accent"
+              style={{ width: "2.5rem", height: "2.5rem" }}
               aria-hidden="true"
             >
               A
@@ -53,16 +54,17 @@ export function Navigation() {
             </span>
           </Link>
 
-          <div className="hidden md:flex md:items-center md:gap-7">
+          <div className="hidden md:flex md:items-center" style={{ gap: "1.75rem" }}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="group relative text-sm font-medium text-foreground/75 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded px-1 py-1"
+                className="group relative text-sm font-medium text-foreground/75 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded"
+                style={{ padding: "0.25rem 0.5rem" }}
               >
                 {item.name}
                 <span
-                  className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full"
+                  className="absolute bottom-0 left-0 h-px w-0 bg-accent transition-all duration-300 group-hover:w-full"
                   aria-hidden="true"
                 />
               </Link>
@@ -72,7 +74,8 @@ export function Navigation() {
           <div className="hidden md:block">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-accent/70 text-accent text-sm font-medium hover:bg-accent hover:text-on-accent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex items-center gap-2 rounded-full border border-accent/70 text-accent text-sm font-medium hover:bg-accent hover:text-on-accent transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              style={{ padding: "0.625rem 1.5rem" }}
             >
               Get in Touch
             </Link>
@@ -80,17 +83,18 @@ export function Navigation() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="md:hidden inline-flex items-center justify-center rounded-full border border-border bg-background text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            style={{ width: "2.75rem", height: "2.75rem" }}
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
           >
             {mobileMenuOpen ? (
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg style={{ width: "1.25rem", height: "1.25rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg style={{ width: "1.25rem", height: "1.25rem" }} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -99,16 +103,21 @@ export function Navigation() {
 
         <div
           id="mobile-menu"
-          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"}`}
+          className="md:hidden overflow-hidden transition-all duration-300 ease-in-out"
+          style={{
+            maxHeight: mobileMenuOpen ? "20rem" : "0",
+            opacity: mobileMenuOpen ? 1 : 0,
+          }}
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <div className="py-4 space-y-1 border-t border-border">
+          <div className="border-t border-border" style={{ padding: "1rem 0" }}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="block px-3 py-3 text-base font-medium text-foreground/80 hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                className="block text-base font-medium text-foreground/80 hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                style={{ padding: "0.75rem" }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
@@ -116,7 +125,8 @@ export function Navigation() {
             ))}
             <Link
               href="/contact"
-              className="block px-3 py-3 text-base font-medium text-accent hover:bg-muted rounded-lg transition-colors"
+              className="block text-base font-medium text-accent hover:bg-muted rounded-lg transition-colors"
+              style={{ padding: "0.75rem" }}
               onClick={() => setMobileMenuOpen(false)}
             >
               Get in Touch

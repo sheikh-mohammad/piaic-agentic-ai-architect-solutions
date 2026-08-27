@@ -42,48 +42,52 @@ export function About() {
   return (
     <section
       ref={ref}
-      className="py-24 md:py-36"
+      className="section-lg"
       aria-labelledby="about-heading"
     >
       <div className="frame">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: "3.5rem" }}>
           <div style={reveal(0)}>
-            <span className="eyebrow text-accent mb-6 block">Our Mission</span>
-            <h2 id="about-heading" className="font-serif text-4xl md:text-5xl lg:text-6xl tracking-tight text-foreground leading-[1.08] text-balance">
+            <span className="eyebrow text-accent">Our Mission</span>
+            <h2 id="about-heading" className="font-serif text-foreground text-balance" style={{ fontSize: "clamp(2.25rem, 5vw, 3.75rem)", lineHeight: 1.08, letterSpacing: "-0.02em" }}>
               Fragrances lost to time,
               <br />
               <span className="italic text-primary">brought back to life.</span>
             </h2>
-            <p className="mt-8 text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-xl">
-              Aroma Antiquaria is the world's first museum devoted to archaeological perfumery.
+            <p className="text-muted-foreground font-light" style={{ fontSize: "clamp(1rem, 2vw, 1.125rem)", lineHeight: 1.7, marginTop: "2rem", maxWidth: "36rem" }}>
+              Aroma Antiquaria is the world&apos;s first museum devoted to archaeological perfumery.
               We unite archaeologists, linguists, chemists, and perfumers in a single pursuit:
               to recover the scents our ancestors carried, revered, and traded across three millennia.
             </p>
-            <p className="mt-5 text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-xl">
+            <p className="text-muted-foreground font-light" style={{ fontSize: "clamp(1rem, 2vw, 1.125rem)", lineHeight: 1.7, marginTop: "1.25rem", maxWidth: "36rem" }}>
               Every fragrance in our collection is grounded in evidence — a clay tablet, a residue sample,
               a sacred text — and reconstructed with the same rigor we bring to any museum artifact.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5" style={reveal(150)}>
+          <div className="grid grid-cols-1 md:grid-cols-3" style={{ ...{ gap: "1.25rem" }, ...reveal(150) }}>
             {pillars.map((p) => (
               <article
                 key={p.title}
-                className="group rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-accent/40"
+                className="card group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-accent/40"
               >
-                <div className="flex items-center justify-center h-14 w-14 rounded-full bg-primary/[0.06] text-primary font-serif text-2xl mb-5 group-hover:bg-accent group-hover:text-on-accent transition-colors duration-300" aria-hidden="true">
+                <div
+                  className="flex items-center justify-center rounded-full bg-primary/[0.06] text-primary font-serif text-2xl group-hover:bg-accent group-hover:text-on-accent transition-colors duration-300"
+                  style={{ width: "3.5rem", height: "3.5rem", marginBottom: "1.25rem" }}
+                  aria-hidden="true"
+                >
                   {p.mark}
                 </div>
-                <h3 className="font-serif text-lg text-foreground mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{p.description}</p>
+                <h3 className="font-serif text-foreground" style={{ fontSize: "1.125rem", marginBottom: "0.5rem" }}>{p.title}</h3>
+                <p className="text-muted-foreground" style={{ fontSize: "0.875rem", lineHeight: 1.7 }}>{p.description}</p>
               </article>
             ))}
           </div>
         </div>
 
         <div
-          className="mt-20 md:mt-28 flex flex-wrap justify-center gap-x-16 gap-y-10"
-          style={reveal(250)}
+          className="flex flex-wrap justify-center"
+          style={{ ...{ gap: "3rem 4rem", marginTop: "5rem" }, ...reveal(250) }}
           aria-label="Impact statistics"
         >
           {[
@@ -93,8 +97,8 @@ export function About() {
             { value: "34", label: "Museum Partners" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
-              <div className="font-serif text-5xl md:text-6xl text-primary">{stat.value}</div>
-              <div className="mt-2 text-[0.75rem] uppercase tracking-[0.2em] text-muted-foreground">{stat.label}</div>
+              <div className="font-serif text-primary" style={{ fontSize: "clamp(3rem, 6vw, 3.75rem)" }}>{stat.value}</div>
+              <div className="text-muted-foreground" style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.2em", marginTop: "0.5rem" }}>{stat.label}</div>
             </div>
           ))}
         </div>
