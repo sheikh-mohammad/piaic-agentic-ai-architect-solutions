@@ -1,67 +1,35 @@
 @import "tailwindcss";
 
-:root {
-  --color-primary: #6E1B1B;
-  --color-on-primary: #FDF8F1;
-  --color-secondary: #2E1A11;
-  --color-on-secondary: #F6EFE6;
-  --color-accent: #B08D57;
-  --color-on-accent: #1C1917;
-  --color-background: #F7F2EA;
-  --color-foreground: #1C1917;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #1C1917;
-  --color-muted: #EFE7DA;
-  --color-muted-foreground: #6B6259;
-  --color-border: #E3D9C9;
-  --color-destructive: #B3261E;
-  --color-on-destructive: #FFFFFF;
-  --color-ring: #B08D57;
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair);
-  --font-mono: var(--font-jetbrains-mono);
+@theme {
+  --color-primary: #6e1b1b;
+  --color-on-primary: #fdf8f1;
+  --color-secondary: #2e1a11;
+  --color-on-secondary: #f6efe6;
+  --color-accent: #b08d57;
+  --color-on-accent: #1c1917;
+  --color-background: #f7f2ea;
+  --color-foreground: #1c1917;
+  --color-card: #ffffff;
+  --color-card-foreground: #1c1917;
+  --color-muted: #efe7da;
+  --color-muted-foreground: #6b6259;
+  --color-border: #e3d9c9;
+  --color-destructive: #b3261e;
+  --color-on-destructive: #ffffff;
+  --color-ring: #b08d57;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
-@theme inline {
-  --color-primary: var(--color-primary);
-  --color-on-primary: var(--color-on-primary);
-  --color-secondary: var(--color-secondary);
-  --color-on-secondary: var(--color-on-secondary);
-  --color-accent: var(--color-accent);
-  --color-on-accent: var(--color-on-accent);
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --color-card: var(--color-card);
-  --color-card-foreground: var(--color-card-foreground);
-  --color-muted: var(--color-muted);
-  --color-muted-foreground: var(--color-muted-foreground);
-  --color-border: var(--color-border);
-  --color-destructive: var(--color-destructive);
-  --color-on-destructive: var(--color-on-destructive);
-  --color-ring: var(--color-ring);
-  --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
-  --font-mono: var(--font-mono);
+:root {
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #C4793B;
-    --color-on-primary: #1C1917;
-    --color-secondary: #3A2418;
-    --color-on-secondary: #F1E7D8;
-    --color-accent: #D4AF6A;
-    --color-on-accent: #241A10;
-    --color-background: #16120D;
-    --color-foreground: #F1E9DC;
-    --color-card: #221B14;
-    --color-card-foreground: #F1E9DC;
-    --color-muted: #2E251B;
-    --color-muted-foreground: #B8A892;
-    --color-border: #3A2F22;
-    --color-destructive: #E05A4E;
-    --color-on-destructive: #1C1917;
-    --color-ring: #D4AF6A;
+    color-scheme: dark;
   }
 }
 
@@ -78,7 +46,7 @@ html {
 body {
   background: var(--color-background);
   color: var(--color-foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.6;
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
@@ -86,7 +54,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: var(--font-serif);
   font-weight: 500;
   line-height: 1.15;
   letter-spacing: -0.01em;
@@ -129,31 +97,35 @@ img {
   }
 }
 
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 2.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: 0 3rem;
-  }
-}
-
 .text-balance {
   text-wrap: balance;
 }
 
+.frame {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .frame {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .frame {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
 .eyebrow {
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.18em;

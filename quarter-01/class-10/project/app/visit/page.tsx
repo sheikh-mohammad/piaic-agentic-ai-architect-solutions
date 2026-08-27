@@ -101,7 +101,7 @@ export default function VisitPage() {
       <Navigation />
       <main className="flex-1 pt-16" role="main">
         <section className="py-16 md:py-24 border-b border-border" aria-labelledby="visit-heading">
-          <div className="container">
+          <div className="frame">
             <header className="max-w-3xl mx-auto text-center mb-16">
               <span className="text-sm font-mono uppercase tracking-widest text-primary mb-4 block max-sm:text-xs">
                 Plan Your Visit
@@ -124,7 +124,7 @@ export default function VisitPage() {
         </section>
 
         <section className="py-16 md:py-24 bg-muted/30 border-b border-border" aria-labelledby="hours-heading">
-          <div className="container">
+          <div className="frame">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
               <div>
                 <h2 id="hours-heading" className="font-serif text-2xl md:text-3xl font-medium text-foreground mb-6">Opening Hours</h2>
@@ -188,7 +188,7 @@ export default function VisitPage() {
         </section>
 
         <section className="py-16 md:py-24 border-b border-border" aria-labelledby="workshops-heading">
-          <div className="container">
+          <div className="frame">
             <header className="max-w-3xl mx-auto text-center mb-12">
               <h2 id="workshops-heading" className="font-serif text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-4">
                 Workshops & Seminars
@@ -242,7 +242,7 @@ export default function VisitPage() {
         </section>
 
         <section className="py-16 md:py-24 bg-muted/30" aria-labelledby="tours-heading">
-          <div className="container">
+          <div className="frame">
             <header className="max-w-3xl mx-auto text-center mb-12">
               <h2 id="tours-heading" className="font-serif text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-4">
                 Olfactory Tours
@@ -283,7 +283,7 @@ export default function VisitPage() {
         </section>
 
         <section id="book" className="py-16 md:py-24 border-b border-border" aria-labelledby="book-heading">
-          <div className="container max-w-3xl">
+          <div className="mx-auto w-full max-w-3xl px-6">
             <header className="text-center mb-10">
               <h2 id="book-heading" className="font-serif text-3xl md:text-4xl font-medium tracking-tight text-foreground mb-3">
                 Reserve Your Visit

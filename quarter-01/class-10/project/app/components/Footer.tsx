@@ -33,7 +33,7 @@ const columns = [
 export function Footer() {
   return (
     <footer className="bg-secondary text-on-secondary" role="contentinfo">
-      <div className="container py-16 md:py-24">
+      <div className="frame py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2">
             <Link href="/" className="group inline-flex items-center gap-3 mb-6" aria-label="Aroma Antiquaria Home">

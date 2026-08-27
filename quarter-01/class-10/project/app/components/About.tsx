@@ -45,7 +45,7 @@ export function About() {
       className="py-24 md:py-36"
       aria-labelledby="about-heading"
     >
-      <div className="container">
+      <div className="frame">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
           <div style={reveal(0)}>
             <span className="eyebrow text-accent mb-6 block">Our Mission</span>

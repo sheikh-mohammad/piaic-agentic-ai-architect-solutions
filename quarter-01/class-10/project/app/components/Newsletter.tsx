@@ -18,7 +18,7 @@ export function Newsletter() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
       </div>
 
-      <div className="container">
+      <div className="frame">
         <div className="max-w-2xl mx-auto text-center">
           <span className="eyebrow text-accent block mb-6">Stay in the Scent</span>
           <h2 id="newsletter-heading" className="font-serif text-4xl md:text-5xl tracking-tight text-foreground text-balance">

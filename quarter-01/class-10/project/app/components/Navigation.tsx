@@ -30,7 +30,7 @@ export function Navigation() {
       }`}
       role="banner"
     >
-      <nav className="container">
+      <nav className="frame">
         <div className="flex h-20 items-center justify-between">
           <Link
             href="/"

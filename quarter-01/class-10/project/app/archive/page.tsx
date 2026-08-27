@@ -93,7 +93,7 @@ export default function ArchivePage() {
       <Navigation />
       <main className="flex-1 pt-24" role="main">
         <section className="py-16 md:py-24 border-b border-border" aria-labelledby="archive-heading">
-          <div className="container">
+          <div className="frame">
             <header className="max-w-3xl mb-16">
               <span className="eyebrow text-accent block mb-5">The Collection</span>
               <h1 id="archive-heading" className="font-serif text-4xl md:text-6xl tracking-tight text-foreground leading-[1.08] text-balance">
