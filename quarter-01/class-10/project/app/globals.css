@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --color-primary: #18181b;
-  --color-on-primary: #ffffff;
-  --color-secondary: #27272a;
-  --color-on-secondary: #ffffff;
-  --color-accent: #18181b;
-  --color-on-accent: #ffffff;
-  --color-background: #fafafa;
-  --color-foreground: #09090b;
-  --color-card: #ffffff;
-  --color-card-foreground: #09090b;
-  --color-muted: #e8ecf0;
-  --color-muted-foreground: #475569;
-  --color-border: #e4e4e7;
-  --color-destructive: #dc2626;
-  --color-on-destructive: #ffffff;
-  --color-ring: #18181b;
+  --color-primary: #6E1B1B;
+  --color-on-primary: #FDF8F1;
+  --color-secondary: #2E1A11;
+  --color-on-secondary: #F6EFE6;
+  --color-accent: #B08D57;
+  --color-on-accent: #1C1917;
+  --color-background: #F7F2EA;
+  --color-foreground: #1C1917;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1C1917;
+  --color-muted: #EFE7DA;
+  --color-muted-foreground: #6B6259;
+  --color-border: #E3D9C9;
+  --color-destructive: #B3261E;
+  --color-on-destructive: #FFFFFF;
+  --color-ring: #B08D57;
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
   --font-mono: var(--font-jetbrains-mono);
@@ -46,22 +46,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #fafafa;
-    --color-on-primary: #09090b;
-    --color-secondary: #e4e4e7;
-    --color-on-secondary: #09090b;
-    --color-accent: #fafafa;
-    --color-on-accent: #09090b;
-    --color-background: #09090b;
-    --color-foreground: #fafafa;
-    --color-card: #18181b;
-    --color-card-foreground: #fafafa;
-    --color-muted: #27272a;
-    --color-muted-foreground: #a1a1aa;
-    --color-border: #27272a;
-    --color-destructive: #f87171;
-    --color-on-destructive: #09090b;
-    --color-ring: #fafafa;
+    --color-primary: #C4793B;
+    --color-on-primary: #1C1917;
+    --color-secondary: #3A2418;
+    --color-on-secondary: #F1E7D8;
+    --color-accent: #D4AF6A;
+    --color-on-accent: #241A10;
+    --color-background: #16120D;
+    --color-foreground: #F1E9DC;
+    --color-card: #221B14;
+    --color-card-foreground: #F1E9DC;
+    --color-muted: #2E251B;
+    --color-muted-foreground: #B8A892;
+    --color-border: #3A2F22;
+    --color-destructive: #E05A4E;
+    --color-on-destructive: #1C1917;
+    --color-ring: #D4AF6A;
   }
 }
 
@@ -80,6 +80,7 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   line-height: 1.6;
+  letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -87,7 +88,8 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif), Georgia, serif;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -97,6 +99,7 @@ a {
 
 button {
   font-family: inherit;
+  cursor: pointer;
 }
 
 img {
@@ -106,8 +109,8 @@ img {
 }
 
 ::selection {
-  background: var(--color-primary);
-  color: var(--color-on-primary);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 :focus-visible {
@@ -135,7 +138,7 @@ img {
 
 @media (min-width: 768px) {
   .container {
-    padding: 0 2rem;
+    padding: 0 2.5rem;
   }
 }
 
@@ -147,4 +150,19 @@ img {
 
 .text-balance {
   text-wrap: balance;
+}
+
+.eyebrow {
+  font-family: var(--font-sans), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.hero-gradient {
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(176,141,87,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 85% 40%, rgba(110,27,27,0.14), transparent 60%),
+    linear-gradient(180deg, var(--color-background) 0%, var(--color-muted) 100%);
 }
