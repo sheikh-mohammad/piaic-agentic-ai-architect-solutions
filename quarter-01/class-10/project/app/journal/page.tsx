@@ -143,7 +143,7 @@ export default function JournalPage() {
       <Navigation />
       <main className="flex-1 pt-16" role="main">
         <section className="py-16 md:py-24 border-b border-border" aria-labelledby="journal-heading">
-          <div className="container">
+          <div className="frame">
             <header className="max-w-3xl mx-auto text-center mb-16">
               <span className="text-sm font-mono uppercase tracking-widest text-primary mb-4 block max-sm:text-xs">
                 Peer-Reviewed Research
