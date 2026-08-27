@@ -6,7 +6,6 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
 });
 
 const playfair = Playfair_Display({

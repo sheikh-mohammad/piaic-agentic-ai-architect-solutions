@@ -51,17 +51,17 @@ export function Hero() {
             <span className="block" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }}>
               Archaeology
             </span>
-            <span className="block text-primary" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }, transitionDelay: "100ms" }}>
+            <span className="block text-primary" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transitionDelay: "100ms" }}>
               of Scent
             </span>
-            <span className="block" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }, transitionDelay: "200ms" }}>
+            <span className="block" style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transitionDelay: "200ms" }}>
               Reconstructed
             </span>
           </h1>
 
           <p
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-light transition-opacity duration-700"
-            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }, transitionDelay: "400ms" }}
+            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transitionDelay: "400ms" }}
           >
             We revive lost fragrances through molecular archaeology, ancient textual analysis,
             and experimental reconstruction—bringing the olfactory past into the present.
@@ -69,7 +69,7 @@ export function Hero() {
 
           <div
             className="flex flex-col sm:flex-row items-center justify-center gap-4 transition-opacity duration-700"
-            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }, transitionDelay: "500ms" }}
+            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transitionDelay: "500ms" }}
           >
             <Link
               href="/archive"
@@ -90,7 +90,7 @@ export function Hero() {
 
           <div
             className="mt-16 flex items-center justify-center gap-8 md:gap-16 text-sm text-muted-foreground transition-opacity duration-700"
-            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)" }, transitionDelay: "600ms" }}
+            style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transitionDelay: "600ms" }}
             aria-label="Key statistics"
           >
             <div className="text-center">
