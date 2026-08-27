@@ -46,7 +46,7 @@
   }
 }
 
-/* ===== BASE RESET ===== */
+/* ===== RESET ===== */
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -63,9 +63,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ===== TYPOGRAPHY BASE WITH SPACING ===== */
+/* ===== TYPOGRAPHY ===== */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-serif);
   font-weight: 500;
@@ -75,17 +76,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1.125rem; }
-h6 { font-size: 1rem; }
-
-p {
-  margin: 0;
-  padding: 0;
-}
+p { margin: 0; padding: 0; }
 
 a {
   color: inherit;
@@ -116,7 +107,6 @@ input, select, textarea {
   font-size: inherit;
 }
 
-/* ===== FOCUS & SELECTION ===== */
 ::selection {
   background: var(--color-accent);
   color: var(--color-on-accent);
@@ -127,7 +117,7 @@ input, select, textarea {
   outline-offset: 2px;
 }
 
-/* ===== CONTAINER / FRAME — Master layout wrapper ===== */
+/* ===== CONTAINER / FRAME ===== */
 .frame {
   width: 100%;
   max-width: 80rem;
@@ -151,24 +141,18 @@ input, select, textarea {
   }
 }
 
-/* ===== SECTION SPACING — Consistent vertical rhythm ===== */
+/* ===== SECTION SPACING ===== */
 .section {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
 
 @media (min-width: 40rem) {
-  .section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-  }
+  .section { padding-top: 5rem; padding-bottom: 5rem; }
 }
 
 @media (min-width: 64rem) {
-  .section {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
-  }
+  .section { padding-top: 6rem; padding-bottom: 6rem; }
 }
 
 .section-lg {
@@ -177,31 +161,33 @@ input, select, textarea {
 }
 
 @media (min-width: 40rem) {
-  .section-lg {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
-  }
+  .section-lg { padding-top: 7rem; padding-bottom: 7rem; }
 }
 
 @media (min-width: 64rem) {
-  .section-lg {
-    padding-top: 9rem;
-    padding-bottom: 9rem;
-  }
+  .section-lg { padding-top: 9rem; padding-bottom: 9rem; }
 }
 
-/* ===== CARD SPACING ===== */
+/* ===== CARD ===== */
 .card {
   padding: 1.5rem;
   border-radius: 1rem;
   border: 1px solid var(--color-border);
   background: var(--color-card);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
 }
 
 @media (min-width: 40rem) {
-  .card {
-    padding: 1.75rem;
-  }
+  .card { padding: 1.75rem; }
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(28, 25, 23, 0.08),
+              0 8px 16px -8px rgba(28, 25, 23, 0.04);
+  border-color: rgba(176, 141, 87, 0.3);
 }
 
 .card-lg {
@@ -209,30 +195,40 @@ input, select, textarea {
   border-radius: 1.25rem;
   border: 1px solid var(--color-border);
   background: var(--color-card);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease;
 }
 
 @media (min-width: 40rem) {
-  .card-lg {
-    padding: 2.25rem;
-  }
+  .card-lg { padding: 2.25rem; }
 }
 
-/* ===== EYEBROW LABEL ===== */
+.card-lg:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(28, 25, 23, 0.08),
+              0 8px 16px -8px rgba(28, 25, 23, 0.04);
+  border-color: rgba(176, 141, 87, 0.3);
+}
+
+/* ===== EYEBROW ===== */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  display: block;
-  margin-bottom: 1.25rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: var(--color-accent);
 }
 
 /* ===== HERO GRADIENT ===== */
 .hero-gradient {
   background:
-    radial-gradient(ellipse 60% 50% at 20% 10%, rgba(176,141,87,0.18), transparent 60%),
-    radial-gradient(ellipse 50% 50% at 85% 40%, rgba(110,27,27,0.14), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 15% 5%, rgba(176,141,87,0.12), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 85% 35%, rgba(110,27,27,0.1), transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(176,141,87,0.06), transparent 50%),
     linear-gradient(180deg, var(--color-background) 0%, var(--color-muted) 100%);
 }
 
@@ -241,11 +237,73 @@ input, select, textarea {
   text-wrap: balance;
 }
 
+/* ===== GLASS EFFECT ===== */
+.glass {
+  background: rgba(247, 242, 234, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.glass-dark {
+  background: rgba(46, 26, 17, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+/* ===== SUBTLE ANIMATIONS ===== */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease both;
+}
+
+/* ===== DECORATIVE DIVIDER ===== */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+  margin: 0;
+  border: none;
+}
+
+.divider-accent {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  margin: 0;
+  border: none;
+  opacity: 0.4;
+}
+
 /* ===== REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

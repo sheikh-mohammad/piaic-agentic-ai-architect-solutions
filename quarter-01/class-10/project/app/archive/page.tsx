@@ -13,78 +13,25 @@ const civilizations = [
   { name: "Classical Greece", period: "800–146 BCE", count: 22, mark: "Δ", tint: "text-[#2E5E8A]" },
   { name: "Roman Empire", period: "27 BCE–476 CE", count: 28, mark: "ſ", tint: "text-[#8A2A2A]" },
   { name: "Ancient China", period: "1600 BCE–220 CE", count: 15, mark: "中", tint: "text-[#3E6B3E]" },
-  { name: "Indus Valley", period: "3300–1300 BCE", count: 8, mark: "Ⲫ", tint: "text-[#5B4A8A]" },
+  { name: "Indus Valley", period: "3300–1300 BCE", count: 8, mark: "Փ", tint: "text-[#5B4A8A]" },
   { name: "Maya Civilization", period: "2000 BCE–900 CE", count: 11, mark: "◎", tint: "text-[#2E6B5E]" },
   { name: "Ancient Persia", period: "550–330 BCE", count: 11, mark: "✿", tint: "text-[#A4522A]" },
 ];
 
 const fragrances = [
-  {
-    name: "Kyphi",
-    civ: "Ancient Egypt",
-    period: "16th c. BCE",
-    desc: "The celebrated temple incense of Egypt, sixteen sacred ingredients burned at dusk to summon the divine.",
-    notes: ["Honey", "Wine", "Myrrh", "Frankincense"],
-    status: "Complete",
-    year: 2023,
-  },
-  {
-    name: "Royal Perfume of Pylos",
-    civ: "Mycenaean Greece",
-    period: "1300 BCE",
-    desc: "Reconstructed from Linear B tablets; coriander, sage and citrus suspended in perfumed olive oil.",
-    notes: ["Coriander", "Sage", "Citrus", "Honey"],
-    status: "Complete",
-    year: 2024,
-  },
-  {
-    name: "Nardin",
-    civ: "Ancient Greece",
-    period: "4th c. BCE",
-    desc: "Spikenard unguent, valued above gold and carried across the Silk Road in alabaster jars.",
-    notes: ["Spikenard", "Cinnamon", "Calamus"],
-    status: "Complete",
-    year: 2022,
-  },
-  {
-    name: "Han Court Fragrance",
-    civ: "Ancient China",
-    period: "2nd c. BCE",
-    desc: "An imperial blend of agarwood, clove and musk from the 'Fan Ye' reckonings of court ritual.",
-    notes: ["Agarwood", "Clove", "Musk"],
-    status: "Complete",
-    year: 2023,
-  },
-  {
-    name: "Copal of Tikal",
-    civ: "Maya Civilization",
-    period: "600 CE",
-    desc: "Sacred resin offering blend read from ceramic residue, married to cacao and tobacco.",
-    notes: ["Copal", "Cacao", "Vanilla"],
-    status: "In Progress",
-    year: 2024,
-  },
-  {
-    name: "Rosatum",
-    civ: "Roman Empire",
-    period: "50 CE",
-    desc: "The rose-infused oil of Pliny, a luxury anointment of saffron, myrrh and sun-steeped petals.",
-    notes: ["Rose", "Saffron", "Myrrh"],
-    status: "Complete",
-    year: 2023,
-  },
+  { name: "Kyphi", civ: "Ancient Egypt", period: "16th c. BCE", desc: "The celebrated temple incense of Egypt, sixteen sacred ingredients burned at dusk to summon the divine.", notes: ["Honey", "Wine", "Myrrh", "Frankincense"], status: "Complete", year: 2023 },
+  { name: "Royal Perfume of Pylos", civ: "Mycenaean Greece", period: "1300 BCE", desc: "Reconstructed from Linear B tablets; coriander, sage and citrus suspended in perfumed olive oil.", notes: ["Coriander", "Sage", "Citrus", "Honey"], status: "Complete", year: 2024 },
+  { name: "Nardin", civ: "Ancient Greece", period: "4th c. BCE", desc: "Spikenard unguent, valued above gold and carried across the Silk Road in alabaster jars.", notes: ["Spikenard", "Cinnamon", "Calamus"], status: "Complete", year: 2022 },
+  { name: "Han Court Fragrance", civ: "Ancient China", period: "2nd c. BCE", desc: "An imperial blend of agarwood, clove and musk from the 'Fan Ye' reckonings of court ritual.", notes: ["Agarwood", "Clove", "Musk"], status: "Complete", year: 2023 },
+  { name: "Copal of Tikal", civ: "Maya Civilization", period: "600 CE", desc: "Sacred resin offering blend read from ceramic residue, married to cacao and tobacco.", notes: ["Copal", "Cacao", "Vanilla"], status: "In Progress", year: 2024 },
+  { name: "Rosatum", civ: "Roman Empire", period: "50 CE", desc: "The rose-infused oil of Pliny, a luxury anointment of saffron, myrrh and sun-steeped petals.", notes: ["Rose", "Saffron", "Myrrh"], status: "Complete", year: 2023 },
 ];
 
 function StatusBadge({ status }: { status: string }) {
-  const styles =
-    status === "Complete"
-      ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/30"
-      : "bg-amber-500/10 text-amber-700 border-amber-500/30";
-  return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${styles}`}>
-      {status}
-    </span>
-  );
+  const s = status === "Complete"
+    ? "bg-emerald-500/10 text-emerald-700 border-emerald-500/20"
+    : "bg-amber-500/10 text-amber-700 border-amber-500/20";
+  return <span className={`inline-flex items-center rounded-full border font-medium ${s}`} style={{ padding: "0.25rem 0.75rem", fontSize: "0.7rem" }}>{status}</span>;
 }
 
 export default function ArchivePage() {
@@ -92,37 +39,35 @@ export default function ArchivePage() {
     <div className="flex flex-col min-h-screen">
       <Navigation />
       <main className="flex-1 pt-24" role="main">
-        <section className="py-16 md:py-24 border-b border-border" aria-labelledby="archive-heading">
+        <section className="section border-b border-border/50" aria-labelledby="archive-heading">
           <div className="frame">
-            <header className="max-w-3xl mb-16">
-              <span className="eyebrow text-accent block mb-5">The Collection</span>
-              <h1 id="archive-heading" className="font-serif text-4xl md:text-6xl tracking-tight text-foreground leading-[1.08] text-balance">
+            <header style={{ maxWidth: "40rem", marginBottom: "3.5rem" }}>
+              <span className="eyebrow">The Collection</span>
+              <h1 id="archive-heading" className="font-serif text-foreground text-balance" style={{ fontSize: "clamp(2.25rem, 5vw, 3.75rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
                 The Digital Archive
               </h1>
-              <p className="mt-7 text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-2xl">
+              <p className="text-muted-foreground font-light" style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", lineHeight: 1.75, marginTop: "1.5rem", maxWidth: "36rem" }}>
                 Browse 147 reconstructed fragrances drawn from 23 civilizations. Each entry joins
-                molecular analysis, ancient sources, and the perfumer&rsquo;s hand.
+                molecular analysis, ancient sources, and the perfumer&apos;s hand.
               </p>
             </header>
 
-            <div className="mb-20">
-              <div className="flex items-baseline justify-between mb-9">
-                <h2 className="font-serif text-2xl md:text-3xl text-foreground">Civilizations</h2>
-                <span className="text-sm text-muted-foreground">23 cultures represented</span>
+            {/* Civilizations */}
+            <div style={{ marginBottom: "4rem" }}>
+              <div className="flex items-baseline justify-between" style={{ marginBottom: "1.5rem" }}>
+                <h2 className="font-serif text-foreground" style={{ fontSize: "clamp(1.5rem, 3vw, 1.875rem)" }}>Civilizations</h2>
+                <span className="text-muted-foreground" style={{ fontSize: "0.8125rem" }}>23 cultures represented</span>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4" style={{ gap: "0.875rem" }}>
                 {civilizations.map((civ) => (
-                  <article
-                    key={civ.name}
-                    className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl"
-                  >
-                    <div className="flex items-start justify-between mb-5">
-                      <span className={`font-serif text-3xl ${civ.tint}`} aria-hidden="true">{civ.mark}</span>
-                      <span className="font-serif text-2xl text-foreground">{civ.count}</span>
+                  <article key={civ.name} className="card group" style={{ padding: "1.25rem" }}>
+                    <div className="flex items-start justify-between" style={{ marginBottom: "1rem" }}>
+                      <span className={`font-serif ${civ.tint}`} style={{ fontSize: "1.75rem" }} aria-hidden="true">{civ.mark}</span>
+                      <span className="font-serif text-foreground" style={{ fontSize: "1.375rem" }}>{civ.count}</span>
                     </div>
-                    <h3 className="font-serif text-lg text-foreground">{civ.name}</h3>
-                    <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">{civ.period}</p>
-                    <span className="mt-4 block text-xs text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <h3 className="font-serif text-foreground" style={{ fontSize: "0.95rem" }}>{civ.name}</h3>
+                    <p className="text-muted-foreground" style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.25rem" }}>{civ.period}</p>
+                    <span className="block text-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ fontSize: "0.7rem", marginTop: "0.75rem" }}>
                       Explore collection →
                     </span>
                   </article>
@@ -130,35 +75,33 @@ export default function ArchivePage() {
               </div>
             </div>
 
-            <div className="mb-14">
-              <div className="flex items-baseline justify-between mb-9">
-                <h2 className="font-serif text-2xl md:text-3xl text-foreground">Featured Fragrances</h2>
-                <span className="text-sm text-muted-foreground">Thoughtfully selected</span>
+            {/* Fragrances */}
+            <div style={{ marginBottom: "3rem" }}>
+              <div className="flex items-baseline justify-between" style={{ marginBottom: "1.5rem" }}>
+                <h2 className="font-serif text-foreground" style={{ fontSize: "clamp(1.5rem, 3vw, 1.875rem)" }}>Featured Fragrances</h2>
+                <span className="text-muted-foreground" style={{ fontSize: "0.8125rem" }}>Thoughtfully selected</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "1rem" }}>
                 {fragrances.map((f) => (
-                  <article
-                    key={f.name}
-                    className="group rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl flex flex-col"
-                  >
-                    <div className="flex items-start justify-between gap-4 mb-5">
+                  <article key={f.name} className="card group flex flex-col" style={{ padding: "1.5rem" }}>
+                    <div className="flex items-start justify-between gap-3" style={{ marginBottom: "1rem" }}>
                       <div>
-                        <h3 className="font-serif text-xl text-foreground leading-snug">{f.name}</h3>
-                        <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">{f.civ} · {f.period}</p>
+                        <h3 className="font-serif text-foreground leading-snug" style={{ fontSize: "1.125rem" }}>{f.name}</h3>
+                        <p className="text-muted-foreground" style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.25rem" }}>{f.civ} · {f.period}</p>
                       </div>
                       <StatusBadge status={f.status} />
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">{f.desc}</p>
-                    <div className="flex flex-wrap gap-2 mb-6" role="list" aria-label="Notes">
+                    <p className="text-muted-foreground" style={{ fontSize: "0.8125rem", lineHeight: 1.65, marginBottom: "1rem" }}>{f.desc}</p>
+                    <div className="flex flex-wrap" style={{ gap: "0.375rem", marginBottom: "1.25rem" }} role="list" aria-label="Notes">
                       {f.notes.map((n) => (
-                        <span key={n} role="listitem" className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground border border-border">
+                        <span key={n} role="listitem" className="rounded-full bg-muted text-muted-foreground border border-border/60" style={{ padding: "0.25rem 0.625rem", fontSize: "0.7rem" }}>
                           {n}
                         </span>
                       ))}
                     </div>
-                    <div className="mt-auto pt-5 border-t border-border flex items-center justify-between">
-                      <span className="text-xs text-muted-foreground">Reconstructed {f.year}</span>
-                      <span className="text-sm font-medium text-accent group-hover:underline">View →</span>
+                    <div className="mt-auto flex items-center justify-between" style={{ paddingTop: "1rem", borderTop: "1px solid var(--color-border)" }}>
+                      <span className="text-muted-foreground" style={{ fontSize: "0.7rem" }}>Reconstructed {f.year}</span>
+                      <span className="font-medium text-accent group-hover:underline" style={{ fontSize: "0.8125rem" }}>View →</span>
                     </div>
                   </article>
                 ))}
@@ -166,7 +109,7 @@ export default function ArchivePage() {
             </div>
 
             <div className="text-center">
-              <button className="inline-flex items-center gap-2 px-9 py-4 rounded-full border border-accent/60 text-foreground font-medium hover:bg-accent hover:text-on-accent transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+              <button className="inline-flex items-center rounded-full border border-border text-foreground font-medium transition-all duration-300 hover:bg-card hover:border-accent/40 hover:shadow-[0_4px_20px_rgba(28,25,23,0.06)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" style={{ padding: "0.875rem 2rem" }}>
                 View All 147 Fragrances
               </button>
             </div>

@@ -8,86 +8,22 @@ export const metadata: Metadata = {
 };
 
 const reconstructions = [
-  {
-    id: "kyphi",
-    name: "Kyphi",
-    civ: "Ancient Egypt",
-    period: "1550 BCE",
-    desc: "The quintessential Egyptian temple incense — six weeks of blending sixteen authentic ingredients, from honey and wine to frankincense and myrrh.",
-    notes: ["Honey", "Wine", "Myrrh", "Frankincense"],
-    mark: "☥",
-    difficulty: "Advanced",
-    story: "Burned at sunset across Egyptian temples and used as both medicine and perfume, Kyphi was the scent that carried the sacred into the mundane.",
-  },
-  {
-    id: "pylos",
-    name: "Royal Perfume of Pylos",
-    civ: "Mycenaean Greece",
-    period: "1300 BCE",
-    desc: "Reconstructed directly from Linear B tablets found at the Palace of Nestor, blending coriander, sage and citrus into a perfumed olive oil base.",
-    notes: ["Coriander", "Sage", "Citrus", "Olive"],
-    mark: "Δ",
-    difficulty: "Intermediate",
-    story: "The scribes of Pylos kept meticulous records of royal perfumery, letting us recreate a fragrance last worn in the palaces of the Bronze Age.",
-  },
-  {
-    id: "copal",
-    name: "Copal of Tikal",
-    civ: "Maya Civilization",
-    period: "600 CE",
-    desc: "A sacred ritual incense read from residue analysis of offering bowls at Tikal, married to cacao and tobacco.",
-    notes: ["Copal", "Cacao", "Vanilla", "Tobacco"],
-    mark: "◎",
-    difficulty: "Advanced",
-    story: "Chemical traces in burnt ceramic bowls reveal the ceremonial incense that accompanied Maya offerings to their gods.",
-  },
-  {
-    id: "han",
-    name: "Han Court Fragrance",
-    civ: "Ancient China",
-    period: "100 BCE",
-    desc: "An imperial blend of agarwood, clove and musk from the 'Fan Ye' chronicles of court life.",
-    notes: ["Agarwood", "Clove", "Musk", "Sandalwood"],
-    mark: "中",
-    difficulty: "Expert",
-    story: "Exotic aromatics flowed along the Silk Road to the Chinese court, where perfumers created signature scents for imperial chambers.",
-  },
-  {
-    id: "rosatum",
-    name: "Rose Perfume (Rosatum)",
-    civ: "Roman Empire",
-    period: "50 CE",
-    desc: "The celebrated Roman rose oil described by Pliny the Elder — rose petals steeped in oil with saffron and myrrh.",
-    notes: ["Rose", "Saffron", "Myrrh"],
-    mark: "✿",
-    difficulty: "Intermediate",
-    story: "Pliny and Dioscorides both recorded the making of rosatum, used for cosmetics and for anointing the statues of the gods.",
-  },
-  {
-    id: "cedar",
-    name: "Cedar Temple Incense",
-    civ: "Mesopotamia",
-    period: "2000 BCE",
-    desc: "A Sumerian temple formula from cuneiform tablets, blending cedar, cypress and juniper for the moon god Nanna.",
-    notes: ["Cedar", "Cypress", "Juniper"],
-    mark: "☾",
-    difficulty: "Beginner",
-    story: "Cuneiform tablets from Ur record the oldest written perfume recipes known, honoring the lunar deity with fragrant smoke.",
-  },
+  { id: "kyphi", name: "Kyphi", civ: "Ancient Egypt", period: "1550 BCE", desc: "The quintessential Egyptian temple incense — six weeks of blending sixteen authentic ingredients, from honey and wine to frankincense and myrrh.", notes: ["Honey", "Wine", "Myrrh", "Frankincense"], mark: "☥", difficulty: "Advanced" },
+  { id: "pylos", name: "Royal Perfume of Pylos", civ: "Mycenaean Greece", period: "1300 BCE", desc: "Reconstructed directly from Linear B tablets found at the Palace of Nestor, blending coriander, sage and citrus into a perfumed olive oil base.", notes: ["Coriander", "Sage", "Citrus", "Olive"], mark: "Δ", difficulty: "Intermediate" },
+  { id: "copal", name: "Copal of Tikal", civ: "Maya Civilization", period: "600 CE", desc: "A sacred ritual incense read from residue analysis of offering bowls at Tikal, married to cacao and tobacco.", notes: ["Copal", "Cacao", "Vanilla", "Tobacco"], mark: "◎", difficulty: "Advanced" },
+  { id: "han", name: "Han Court Fragrance", civ: "Ancient China", period: "100 BCE", desc: "An imperial blend of agarwood, clove and musk from the 'Fan Ye' chronicles of court life.", notes: ["Agarwood", "Clove", "Musk", "Sandalwood"], mark: "中", difficulty: "Expert" },
+  { id: "rosatum", name: "Rose Perfume (Rosatum)", civ: "Roman Empire", period: "50 CE", desc: "The celebrated Roman rose oil described by Pliny the Elder — rose petals steeped in oil with saffron and myrrh.", notes: ["Rose", "Saffron", "Myrrh"], mark: "✿", difficulty: "Intermediate" },
+  { id: "cedar", name: "Cedar Temple Incense", civ: "Mesopotamia", period: "2000 BCE", desc: "A Sumerian temple formula from cuneiform tablets, blending cedar, cypress and juniper for the moon god Nanna.", notes: ["Cedar", "Cypress", "Juniper"], mark: "☾", difficulty: "Beginner" },
 ];
 
 function Difficulty({ level }: { level: string }) {
-  const palette: Record<string, string> = {
-    Beginner: "bg-emerald-500/10 text-emerald-700 border-emerald-500/30",
-    Intermediate: "bg-blue-500/10 text-blue-700 border-blue-500/30",
-    Advanced: "bg-amber-500/10 text-amber-700 border-amber-500/30",
-    Expert: "bg-rose-500/10 text-rose-700 border-rose-500/30",
+  const p: Record<string, string> = {
+    Beginner: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20",
+    Intermediate: "bg-blue-500/10 text-blue-700 border-blue-500/20",
+    Advanced: "bg-amber-500/10 text-amber-700 border-amber-500/20",
+    Expert: "bg-rose-500/10 text-rose-700 border-rose-500/20",
   };
-  return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${palette[level]}`}>
-      {level}
-    </span>
-  );
+  return <span className={`inline-flex items-center rounded-full border font-medium ${p[level]}`} style={{ padding: "0.25rem 0.75rem", fontSize: "0.7rem" }}>{level}</span>;
 }
 
 const steps = [
@@ -103,46 +39,43 @@ export default function ReconstructionsPage() {
     <div className="flex flex-col min-h-screen">
       <Navigation />
       <main className="flex-1 pt-24" role="main">
-        <section className="py-16 md:py-24 border-b border-border" aria-labelledby="recon-heading">
+        <section className="section border-b border-border/50" aria-labelledby="recon-heading">
           <div className="frame">
-            <header className="max-w-3xl mb-16">
-              <span className="eyebrow text-accent block mb-5">The Olfactory Lab</span>
-              <h1 id="recon-heading" className="font-serif text-4xl md:text-6xl tracking-tight text-foreground leading-[1.08] text-balance">
+            <header style={{ maxWidth: "40rem", marginBottom: "3.5rem" }}>
+              <span className="eyebrow">The Olfactory Lab</span>
+              <h1 id="recon-heading" className="font-serif text-foreground text-balance" style={{ fontSize: "clamp(2.25rem, 5vw, 3.75rem)", lineHeight: 1.1, letterSpacing: "-0.02em" }}>
                 Experimental
                 <span className="block italic text-primary">Reconstructions</span>
               </h1>
-              <p className="mt-7 text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-2xl">
+              <p className="text-muted-foreground font-light" style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", lineHeight: 1.75, marginTop: "1.5rem", maxWidth: "36rem" }}>
                 Our laboratory rebuilds historical fragrances using molecular science, recovered recipes,
                 and the craft of fine perfumery — each one documented and available for study.
               </p>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "1rem" }}>
               {reconstructions.map((r) => (
-                <article
-                  key={r.id}
-                  className="group rounded-2xl border border-border bg-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-xl flex flex-col"
-                >
-                  <div className="relative h-44 bg-gradient-to-br from-muted to-muted/40 flex items-center justify-center overflow-hidden">
-                    <span className="font-serif text-7xl text-primary/15 group-hover:scale-110 transition-transform duration-500" aria-hidden="true">
+                <article key={r.id} className="card group overflow-hidden flex flex-col" style={{ padding: 0 }}>
+                  <div className="relative flex items-center justify-center overflow-hidden" style={{ height: "10rem", background: "linear-gradient(135deg, var(--color-muted), rgba(239,231,218,0.4))" }}>
+                    <span className="font-serif text-primary/15 transition-transform duration-500 group-hover:scale-110" style={{ fontSize: "4rem" }} aria-hidden="true">
                       {r.mark}
                     </span>
-                    <div className="absolute top-4 right-4"><Difficulty level={r.difficulty} /></div>
+                    <div className="absolute" style={{ top: "0.75rem", right: "0.75rem" }}><Difficulty level={r.difficulty} /></div>
                   </div>
-                  <div className="p-7 flex flex-col flex-1">
-                    <h2 className="font-serif text-xl text-foreground leading-snug">{r.name}</h2>
-                    <p className="mt-1 text-xs text-muted-foreground uppercase tracking-wider">{r.civ} · {r.period}</p>
-                    <p className="mt-4 text-sm text-muted-foreground leading-relaxed">{r.desc}</p>
-                    <div className="flex flex-wrap gap-2 mt-4 mb-5" role="list" aria-label="Notes">
+                  <div className="flex flex-col flex-1" style={{ padding: "1.5rem" }}>
+                    <h2 className="font-serif text-foreground leading-snug" style={{ fontSize: "1.125rem" }}>{r.name}</h2>
+                    <p className="text-muted-foreground" style={{ fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "0.25rem" }}>{r.civ} · {r.period}</p>
+                    <p className="text-muted-foreground" style={{ fontSize: "0.8125rem", lineHeight: 1.65, marginTop: "0.75rem" }}>{r.desc}</p>
+                    <div className="flex flex-wrap" style={{ gap: "0.375rem", marginTop: "0.75rem", marginBottom: "1.25rem" }} role="list" aria-label="Notes">
                       {r.notes.map((n) => (
-                        <span key={n} role="listitem" className="px-2.5 py-1 text-xs rounded-full bg-muted text-muted-foreground border border-border">
+                        <span key={n} role="listitem" className="rounded-full bg-muted text-muted-foreground border border-border/60" style={{ padding: "0.25rem 0.625rem", fontSize: "0.7rem" }}>
                           {n}
                         </span>
                       ))}
                     </div>
-                    <div className="mt-auto pt-5 border-t border-border flex items-center justify-between">
-                      <button className="text-sm font-medium text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">Full Story</button>
-                      <button className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded">Request Sample</button>
+                    <div className="mt-auto flex items-center justify-between" style={{ paddingTop: "1rem", borderTop: "1px solid var(--color-border)" }}>
+                      <button className="font-medium text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded" style={{ fontSize: "0.8125rem" }}>Full Story</button>
+                      <button className="text-muted-foreground hover:text-foreground transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded" style={{ fontSize: "0.8125rem" }}>Request Sample</button>
                     </div>
                   </div>
                 </article>
@@ -151,43 +84,44 @@ export default function ReconstructionsPage() {
           </div>
         </section>
 
-        <section className="relative overflow-hidden py-20 md:py-28 bg-secondary text-on-secondary" aria-labelledby="process-heading">
+        <section className="relative overflow-hidden section bg-secondary text-on-secondary" aria-labelledby="process-heading">
           <div className="frame">
-            <header className="max-w-2xl mb-14">
-              <span className="eyebrow text-accent block mb-5">From Text to Scent</span>
-              <h2 id="process-heading" className="font-serif text-3xl md:text-5xl tracking-tight leading-tight">
+            <header style={{ maxWidth: "28rem", marginBottom: "3rem" }}>
+              <span className="eyebrow">From Text to Scent</span>
+              <h2 id="process-heading" className="font-serif text-on-secondary" style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", lineHeight: 1.15 }}>
                 Five Stages of Reconstruction
               </h2>
             </header>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-5" style={{ gap: "1.5rem" }}>
               {steps.map((s, i) => (
                 <div key={s.n} className="relative">
                   {i < steps.length - 1 && (
-                    <div className="hidden md:block absolute top-6 left-1/2 w-full border-t border-dashed border-on-secondary/20" aria-hidden="true" />
+                    <div className="hidden md:block absolute border-t border-dashed border-on-secondary/15" style={{ top: "1.25rem", left: "50%", width: "100%" }} aria-hidden="true" />
                   )}
-                  <div className="flex items-center justify-center h-12 w-12 rounded-full bg-accent text-on-accent font-serif text-lg mb-5 relative">{s.n}</div>
-                  <h3 className="font-serif text-base text-on-secondary mb-2">{s.title}</h3>
-                  <p className="text-xs text-on-secondary/70 leading-relaxed">{s.desc}</p>
+                  <div className="flex items-center justify-center rounded-full bg-accent text-on-accent font-serif relative" style={{ width: "2.5rem", height: "2.5rem", marginBottom: "1rem", fontSize: "0.875rem" }}>{s.n}</div>
+                  <h3 className="font-serif text-on-secondary" style={{ fontSize: "0.875rem", marginBottom: "0.375rem" }}>{s.title}</h3>
+                  <p className="text-on-secondary/60" style={{ fontSize: "0.75rem", lineHeight: 1.6 }}>{s.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-20 md:py-28" aria-labelledby="collab-heading">
-          <div className="mx-auto w-full max-w-3xl px-6 text-center">
-            <span className="eyebrow text-accent block mb-5">Partnerships</span>
-            <h2 id="collab-heading" className="font-serif text-3xl md:text-5xl tracking-tight text-foreground text-balance">
+        <section className="section" aria-labelledby="collab-heading">
+          <div className="text-center" style={{ maxWidth: "40rem", margin: "0 auto", padding: "0 1.5rem" }}>
+            <span className="eyebrow">Partnerships</span>
+            <h2 id="collab-heading" className="font-serif text-foreground text-balance" style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", lineHeight: 1.15 }}>
               Collaborate with the Lab
             </h2>
-            <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-xl mx-auto">
+            <p className="text-muted-foreground font-light" style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.05rem)", lineHeight: 1.75, marginTop: "1.25rem", maxWidth: "28rem", marginLeft: "auto", marginRight: "auto" }}>
               Museums, archaeologists, perfumers, and universities partner with us to bring
               forgotten scents to life.
             </p>
-            <div className="mt-9">
+            <div style={{ marginTop: "2rem" }}>
               <a
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-primary text-on-primary font-medium hover:bg-primary/90 transition-all duration-300 shadow-lg shadow-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="inline-flex items-center justify-center rounded-full bg-primary text-on-primary font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_8px_30px_rgba(110,27,27,0.2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                style={{ padding: "0.875rem 2rem" }}
               >
                 Start a Collaboration
               </a>
