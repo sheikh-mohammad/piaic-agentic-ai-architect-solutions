@@ -16,7 +16,7 @@ export default function Contact() {
     e.preventDefault();
     console.log("Form submitted:", formData);
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setTimeout(() => setSubmitted(false), 4000);
     setFormData({ name: "", email: "", phone: "", service: "", message: "" });
   };
 
@@ -31,34 +31,40 @@ export default function Contact() {
 
   return (
     <div className="pt-32 pb-24">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <span className="inline-block px-4 py-2 mb-6 text-xs font-semibold tracking-widest text-accent border border-border rounded-full bg-muted">
-            GET IN TOUCH
-          </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-foreground">
-            Commission a <span className="text-accent">Masterpiece</span>
+      <section className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Header */}
+        <div className="text-center mb-28">
+          <div className="badge-gold mx-auto mb-10">
+            <div className="gold-dot" />
+            <span>Get in Touch</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl lg:text-7xl font-light mb-10 font-heading">
+            Commission a{" "}
+            <span className="text-gradient-gold italic">Masterpiece</span>
           </h1>
-          <p className="max-w-3xl mx-auto text-lg text-muted-foreground leading-relaxed">
-            Every restoration begins with a conversation. Share your vision with us, and let&apos;s create something extraordinary together. We&apos;d love to hear about the piece you&apos;d like to transform.
+          <p className="max-w-2xl mx-auto text-muted-foreground/55 leading-relaxed text-lg font-light">
+            Every restoration begins with a conversation. Share your vision with
+            us, and let&apos;s create something extraordinary together.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Form */}
           <div className="lg:col-span-2">
-            <div className="bg-card rounded-3xl p-8 sm:p-12 border border-border">
+            <div className="glass-card rounded-3xl p-10 sm:p-14">
               {submitted && (
-                <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-center">
-                  Thank you for your message! We&apos;ll be in touch within 24 hours.
+                <div className="mb-10 p-5 bg-gold/[0.05] border border-gold/12 rounded-xl text-gold/75 text-center text-base font-light">
+                  Thank you for your message! We&apos;ll be in touch within 24
+                  hours.
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-7">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-sm font-medium text-foreground mb-2"
+                      className="block text-[10px] font-semibold text-muted-foreground/45 mb-3 tracking-[0.2em] uppercase"
                     >
                       Your Name
                     </label>
@@ -69,14 +75,14 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                      className="input-luxury"
                       placeholder="John Doe"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-sm font-medium text-foreground mb-2"
+                      className="block text-[10px] font-semibold text-muted-foreground/45 mb-3 tracking-[0.2em] uppercase"
                     >
                       Email Address
                     </label>
@@ -87,17 +93,17 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                      className="input-luxury"
                       placeholder="john@example.com"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-7">
                   <div>
                     <label
                       htmlFor="phone"
-                      className="block text-sm font-medium text-foreground mb-2"
+                      className="block text-[10px] font-semibold text-muted-foreground/45 mb-3 tracking-[0.2em] uppercase"
                     >
                       Phone Number
                     </label>
@@ -107,14 +113,14 @@ export default function Contact() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200"
+                      className="input-luxury"
                       placeholder="+1 (555) 000-0000"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="service"
-                      className="block text-sm font-medium text-foreground mb-2"
+                      className="block text-[10px] font-semibold text-muted-foreground/45 mb-3 tracking-[0.2em] uppercase"
                     >
                       Service Interested In
                     </label>
@@ -124,12 +130,14 @@ export default function Contact() {
                       value={formData.service}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 cursor-pointer"
+                      className="input-luxury cursor-pointer appearance-none"
                     >
                       <option value="">Select a service</option>
                       <option value="tea-ceremony">Tea Ceremony Pieces</option>
-                      <option value="floral">Floral Arrangement Vessels</option>
-                      <option value="dining">Dining & Serving Ware</option>
+                      <option value="floral">
+                        Floral Arrangement Vessels
+                      </option>
+                      <option value="dining">Dining &amp; Serving Ware</option>
                       <option value="decorative">Decorative Objects</option>
                       <option value="consultation">Consultation Only</option>
                     </select>
@@ -139,7 +147,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-foreground mb-2"
+                    className="block text-[10px] font-semibold text-muted-foreground/45 mb-3 tracking-[0.2em] uppercase"
                   >
                     Tell Us About Your Piece
                   </label>
@@ -150,71 +158,94 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-background border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 resize-none"
-                    placeholder="Describe the piece you&apos;d like restored, its history, and your vision for the transformation..."
+                    className="input-luxury resize-none"
+                    placeholder="Describe the piece you'd like restored, its history, and your vision for the transformation..."
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 bg-accent text-white rounded-full font-semibold tracking-wide hover:bg-accent/90 transition-all duration-300 shadow-lg shadow-accent/25 hover:shadow-xl hover:shadow-accent/30 hover:-translate-y-0.5 cursor-pointer"
+                  className="w-full btn-gold justify-center cursor-pointer"
                 >
-                  Send Message
+                  <span>Send Message</span>
                 </button>
               </form>
             </div>
           </div>
 
-          <div className="space-y-8">
-            <div className="bg-card rounded-3xl p-8 border border-border">
-              <h3 className="text-xl font-bold text-foreground mb-4">
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <div className="glass-card rounded-3xl p-9">
+              <h3 className="text-xl font-medium text-foreground mb-7 font-heading">
                 Visit Our Atelier
               </h3>
-              <div className="space-y-4 text-sm text-muted-foreground">
-                <p>
-                  <span className="font-semibold text-foreground">Address:</span>
-                  <br />
-                  123 Sakura Street
-                  <br />
-                  Kyoto, Japan 600-0000
-                </p>
-                <p>
-                  <span className="font-semibold text-foreground">Hours:</span>
-                  <br />
-                  Tuesday - Saturday: 10am - 6pm
-                  <br />
-                  Sunday - Monday: Closed
-                </p>
+              <div className="space-y-6 text-base text-muted-foreground/55 font-light">
+                <div>
+                  <span className="font-medium text-foreground/60 block mb-1.5 text-[10px] tracking-[0.15em] uppercase">
+                    Address
+                  </span>
+                  <p className="leading-relaxed">
+                    123 Sakura Street
+                    <br />
+                    Kyoto, Japan 600-0000
+                  </p>
+                </div>
+                <div>
+                  <span className="font-medium text-foreground/60 block mb-1.5 text-[10px] tracking-[0.15em] uppercase">
+                    Hours
+                  </span>
+                  <p className="leading-relaxed">
+                    Tuesday - Saturday: 10am - 6pm
+                    <br />
+                    Sunday - Monday: Closed
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-card rounded-3xl p-8 border border-border">
-              <h3 className="text-xl font-bold text-foreground mb-4">
+            <div className="glass-card rounded-3xl p-9">
+              <h3 className="text-xl font-medium text-foreground mb-7 font-heading">
                 Contact Info
               </h3>
-              <div className="space-y-4 text-sm text-muted-foreground">
-                <p>
-                  <span className="font-semibold text-foreground">Email:</span>
-                  <br />
-                  hello@kintsugiatelier.com
-                </p>
-                <p>
-                  <span className="font-semibold text-foreground">Phone:</span>
-                  <br />
-                  +81 (75) 123-4567
-                </p>
+              <div className="space-y-6 text-base text-muted-foreground/55 font-light">
+                <div>
+                  <span className="font-medium text-foreground/60 block mb-1.5 text-[10px] tracking-[0.15em] uppercase">
+                    Email
+                  </span>
+                  <p>hello@kintsugiatelier.com</p>
+                </div>
+                <div>
+                  <span className="font-medium text-foreground/60 block mb-1.5 text-[10px] tracking-[0.15em] uppercase">
+                    Phone
+                  </span>
+                  <p>+81 (75) 123-4567</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-accent/10 to-accent/5 rounded-3xl p-8 border border-accent/20">
-              <h3 className="text-xl font-bold text-foreground mb-3">
+            <div className="rounded-3xl p-9 border border-gold/8 bg-gold/[0.02]">
+              <h3 className="text-xl font-medium text-foreground mb-4 font-heading">
                 Virtual Consultation
               </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Can&apos;t visit our Kyoto atelier? We offer video consultations worldwide to discuss your restoration project.
+              <p className="text-base text-muted-foreground/45 mb-6 leading-relaxed font-light">
+                Can&apos;t visit our Kyoto atelier? We offer video consultations
+                worldwide to discuss your restoration project.
               </p>
-              <span className="inline-flex items-center text-accent text-sm font-semibold">
-                Schedule a Call →
+              <span className="inline-flex items-center text-gold/65 text-[10px] font-semibold tracking-[0.15em] uppercase cursor-pointer hover:text-gold transition-colors duration-400">
+                Schedule a Call
+                <svg
+                  className="ml-2 w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
               </span>
             </div>
           </div>
