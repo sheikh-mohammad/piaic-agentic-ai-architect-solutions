@@ -76,7 +76,7 @@ export default function Home() {
                 description: "Celebrate the strength to be broken and the courage to be made whole again.",
                 icon: "⬡",
               },
-            ].map((item, index) => (
+            ].map((item) => (
               <div
                 key={item.title}
                 className="group p-8 rounded-2xl bg-muted/30 border border-border hover:border-accent/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent/5 hover:-translate-y-1"
