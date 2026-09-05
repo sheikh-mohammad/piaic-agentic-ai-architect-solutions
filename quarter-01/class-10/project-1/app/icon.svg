@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A84C"/>
+      <stop offset="45%" stop-color="#D9BD62"/>
+      <stop offset="70%" stop-color="#E8CC78"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0B12"/>
+      <stop offset="100%" stop-color="#08080C"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="0.6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="url(#bg)"/>
+
+  <!-- Thin gold ring -->
+  <circle cx="16" cy="16" r="14.5" fill="none" stroke="url(#gold)" stroke-width="0.4" opacity="0.3"/>
+
+  <!-- Kintsugi crack lines with glow -->
+  <g filter="url(#glow)" stroke="url(#gold)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16 4.5 Q14 10 15.5 14 Q16.5 17 14.5 22 Q13.5 26 15 28" stroke-width="0.9" opacity="0.9"/>
+    <path d="M7 11 Q11 13 14 14.5 Q17 15.5 21 13.5 Q24 12 27 10" stroke-width="0.7" opacity="0.7"/>
+    <path d="M8 22 Q12 20 15.5 21 Q18 22 20 24 Q22 26 25 25" stroke-width="0.6" opacity="0.6"/>
+  </g>
+
+  <!-- Subtle center glow -->
+  <circle cx="16" cy="16" r="2" fill="url(#gold)" opacity="0.08"/>
+</svg>
